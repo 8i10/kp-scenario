@@ -1017,7 +1017,7 @@ function updateTotalCount() {
 //  GH_TOKEN: ログイン後にlocalStorageに保存（HTMLには書かない）
 //  GH_REPO : 'ユーザー名/リポジトリ名' に変更してください
 // ============================================================
-const GH_REPO    = '8i10/kp-scenario'; // 例: 'yourname/trpg-scenarios'
+const GH_REPO    = '8i10/kp-scenario';
 const GH_BRANCH  = 'main';
 const GH_FILE    = 'data.json';
 const GH_API     = 'https://api.github.com/repos/' + GH_REPO + '/contents/' + GH_FILE;
@@ -1382,8 +1382,7 @@ function updateAuthUI() {
       const btnContainer = document.querySelector('.sp-header-btns') || document.querySelector('.header-btns');
       if (btnContainer) btnContainer.prepend(info);
     }
-    const hasToken = !!getGHToken();
-    info.innerHTML = `<button onclick="doLogout()" style="background:none;border:1px solid var(--border);color:var(--text-muted);font-size:11px;padding:2px 8px;border-radius:6px;cursor:pointer;font-family:inherit">ログアウト</button>${!hasToken ? '<button onclick="openTokenModal()" style="background:none;border:1px solid var(--accent);color:var(--accent);font-size:11px;padding:2px 8px;border-radius:6px;cursor:pointer;font-family:inherit">🔑 トークン設定</button>' : ''}`;
+    info.innerHTML = `<button onclick="doLogout()" style="background:none;border:1px solid var(--border);color:var(--text-muted);font-size:11px;padding:2px 8px;border-radius:6px;cursor:pointer;font-family:inherit">ログアウト</button><button onclick="openTokenModal()" style="background:none;border:1px solid var(--accent);color:var(--accent);font-size:11px;padding:2px 8px;border-radius:6px;cursor:pointer;font-family:inherit">🔑 トークン設定</button>`;
   } else {
     const info = document.getElementById('authInfo');
     if (info) info.remove();
