@@ -992,19 +992,36 @@ function updateTotalCount() {
 // ============================================================
 //  GAS API URL（デプロイ後に貼り付け）
 // ============================================================
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbxMUlYDX7GxXBjOdUKdh-qo0TRzEu2YINIbWkxh5W2Ib9-xdF0yjj3d3oJsbKDZY8Br/exec';
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbz-tthsRIwZUUFfgvG6KcgI_4CjzKIXzslEgOnV867GhYPwRVNDN0CkgW4gYoJk-j70/exec';
 
 // ---- API呼び出し共通 ----
+// GASはCORSヘッダーを付けられないのでJSONP方式で通信
+function jsonpRequest(url) {
+  return new Promise((resolve, reject) => {
+    const cb = 'cb_' + Date.now();
+    const script = document.createElement('script');
+    const timer = setTimeout(() => {
+      delete window[cb];
+      script.remove();
+      reject(new Error('timeout'));
+    }, 15000);
+    window[cb] = (data) => {
+      clearTimeout(timer);
+      delete window[cb];
+      script.remove();
+      resolve(data);
+    };
+    script.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cb;
+    script.onerror = () => { clearTimeout(timer); reject(new Error('script error')); };
+    document.head.appendChild(script);
+  });
+}
 async function apiGet() {
-  const res = await fetch(GAS_URL + '?action=list');
-  return await res.json();
+  return await jsonpRequest(GAS_URL + '?action=list');
 }
 async function apiPost(body) {
-  const res = await fetch(GAS_URL, {
-    method: 'POST',
-    body: JSON.stringify(body)
-  });
-  return await res.json();
+  const params = new URLSearchParams({ payload: JSON.stringify(body) });
+  return await jsonpRequest(GAS_URL + '?' + params.toString());
 }
 
 // ---- ローディング表示 ----
