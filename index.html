@@ -789,6 +789,27 @@
     </div>
   </div>
 </div>
+
+<!-- トークン設定モーダル -->
+<div class="modal-overlay" id="tokenOverlay" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal" style="max-width:400px">
+    <div class="modal-head" style="padding:18px 24px 0;position:relative">
+      <div class="modal-title">GitHub Token設定</div>
+      <button class="modal-close" onclick="document.getElementById('tokenOverlay').classList.remove('open')">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px">Personal Access Token（repo権限）を入力してください。このデバイスのみに保存されます。</p>
+      <div class="form-group">
+        <label class="form-label">GitHub Token</label>
+        <input class="form-input" id="tokenInput" type="password" placeholder="ghp_xxxxxxxxxxxx">
+      </div>
+      <div class="form-actions">
+        <button class="btn-cancel" onclick="document.getElementById('tokenOverlay').classList.remove('open')">キャンセル</button>
+        <button class="btn-save" onclick="saveToken()">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- 編集/追加フォームモーダル -->
 <div class="modal-overlay" id="editOverlay" onclick="closeEditOverlay(event)">
   <div class="modal" id="editModal" style="max-width:520px">
@@ -989,39 +1010,69 @@ function updateTotalCount() {
 }
 
 // ② DATAはSCENARIOSのコピー（編集・追加用）
-// ============================================================
-//  GAS API URL（デプロイ後に貼り付け）
-// ============================================================
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbz-tthsRIwZUUFfgvG6KcgI_4CjzKIXzslEgOnV867GhYPwRVNDN0CkgW4gYoJk-j70/exec';
-
-// ---- API呼び出し共通 ----
+// ---- API呼び出し ----
 // GASはCORSヘッダーを付けられないのでJSONP方式で通信
-function jsonpRequest(url) {
-  return new Promise((resolve, reject) => {
-    const cb = 'cb_' + Date.now();
-    const script = document.createElement('script');
-    const timer = setTimeout(() => {
-      delete window[cb];
-      script.remove();
-      reject(new Error('timeout'));
-    }, 15000);
-    window[cb] = (data) => {
-      clearTimeout(timer);
-      delete window[cb];
-      script.remove();
-      resolve(data);
-    };
-    script.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cb;
-    script.onerror = () => { clearTimeout(timer); reject(new Error('script error')); };
-    document.head.appendChild(script);
-  });
+// ============================================================
+//  GitHub API でdata.jsonを読み書き
+//  GH_TOKEN: ログイン後にlocalStorageに保存（HTMLには書かない）
+//  GH_REPO : 'ユーザー名/リポジトリ名' に変更してください
+// ============================================================
+const GH_REPO    = '8i10/kp-scenari'; // 例: 'yourname/trpg-scenarios'
+const GH_BRANCH  = 'main';
+const GH_FILE    = 'data.json';
+const GH_API     = 'https://api.github.com/repos/' + GH_REPO + '/contents/' + GH_FILE;
+const GH_TOKEN_KEY = 'gh_token_v1';
+
+function getGHToken() { return localStorage.getItem(GH_TOKEN_KEY) || ''; }
+function saveGHToken(t) { localStorage.setItem(GH_TOKEN_KEY, t); }
+
+// GH APIヘッダー
+function ghHeaders(token) {
+  return {
+    'Authorization': 'token ' + token,
+    'Accept': 'application/vnd.github.v3+json',
+    'Content-Type': 'application/json'
+  };
 }
+
+// data.jsonのSHAを取得（更新時に必要）
+async function getFileSha(token) {
+  const res = await fetch(GH_API + '?ref=' + GH_BRANCH, { headers: ghHeaders(token) });
+  if (res.status === 404) return null;
+  const json = await res.json();
+  return json.sha || null;
+}
+
+// data.jsonを読み込む
 async function apiGet() {
-  return await jsonpRequest(GAS_URL + '?action=list');
+  // 認証なしで公開リポジトリから取得
+  const url = 'https://raw.githubusercontent.com/' + GH_REPO + '/' + GH_BRANCH + '/' + GH_FILE;
+  const res = await fetch(url + '?t=' + Date.now()); // キャッシュ回避
+  if (!res.ok) return [];
+  return await res.json();
 }
-async function apiPost(body) {
-  const params = new URLSearchParams({ payload: JSON.stringify(body) });
-  return await jsonpRequest(GAS_URL + '?' + params.toString());
+
+// data.jsonを書き込む（トークン必須）
+async function apiSave(newData) {
+  const token = getGHToken();
+  if (!token) throw new Error('トークン未設定');
+  const sha  = await getFileSha(token);
+  const body = {
+    message: 'Update data.json',
+    content: btoa(unescape(encodeURIComponent(JSON.stringify(newData, null, 2)))),
+    branch: GH_BRANCH
+  };
+  if (sha) body.sha = sha;
+  const res = await fetch(GH_API, {
+    method: 'PUT',
+    headers: ghHeaders(token),
+    body: JSON.stringify(body)
+  });
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.message || 'GitHub API error');
+  }
+  return await res.json();
 }
 
 // ---- ローディング表示 ----
@@ -1035,10 +1086,9 @@ const DATA_KEY = 'trpg_data_v1';
 let DATA = JSON.parse(JSON.stringify(SCENARIOS)).map((r,i) => ({...r, _idx: i}));
 let editingIdx = null;
 
-// GASからデータ取得して画面を更新
-async function loadFromGAS() {
-  if (!GAS_URL || GAS_URL.includes('ここに')) {
-    // GAS未設定時はSCENARIOSをそのまま使用
+// GitHubからデータ取得して画面を更新
+async function loadFromGitHub() {
+  if (GH_REPO.includes('ここに')) {
     DATA = JSON.parse(JSON.stringify(SCENARIOS)).map((r,i) => ({...r, _idx: i}));
     updateTotalCount();
     applyFiltersFromData();
@@ -1053,7 +1103,7 @@ async function loadFromGAS() {
       DATA = JSON.parse(JSON.stringify(SCENARIOS)).map((r,i) => ({...r, _idx: i}));
     }
   } catch(e) {
-    console.warn('GAS取得失敗、ローカルデータを使用:', e);
+    console.warn('GitHub取得失敗、ローカルデータを使用:', e);
     DATA = JSON.parse(JSON.stringify(SCENARIOS)).map((r,i) => ({...r, _idx: i}));
   }
   showLoading(false);
@@ -1105,7 +1155,7 @@ render = function() {
   }
 };
 
-loadFromGAS();
+loadFromGitHub();
 
 // ④ theadのtopを確実に設定
 window.addEventListener('resize', updateTheadTop);
@@ -1226,18 +1276,24 @@ async function saveScenario() {
     row._idx = DATA.length > 0 ? Math.max(...DATA.map(r => r._idx ?? 0)) + 1 : 0;
     DATA.push(row);
   }
-  // GAS API保存
-  if (GAS_URL && !GAS_URL.includes('ここに')) {
+  // GitHub API保存
+  if (!GH_REPO.includes('ここに')) {
     showLoading(true);
     try {
+      // idがなければ新規付与
+      if (!row.id) row.id = Date.now().toString();
       if (editingIdx !== null) {
-        await apiPost({ action: 'update', id: row.id, row });
+        const idx = DATA.findIndex(r => r.id === row.id);
+        if (idx !== -1) DATA[idx] = row; else DATA.push(row);
       } else {
-        const res = await apiPost({ action: 'add', row });
-        if (res.ok) row.id = res.id;
+        DATA.push(row);
       }
-    } catch(e) { console.warn('API保存失敗:', e); }
-    await loadFromGAS();
+      await apiSave(DATA);
+      await loadFromGitHub();
+    } catch(e) {
+      alert('保存失敗: ' + e.message);
+      console.error(e);
+    }
     showLoading(false);
   } else {
     updateTotalCount();
@@ -1253,10 +1309,12 @@ async function deleteScenario() {
   const delId = DATA[editingIdx].id;
   DATA.splice(editingIdx, 1);
   editingIdx = null;
-  if (GAS_URL && !GAS_URL.includes('ここに') && delId) {
+  if (!GH_REPO.includes('ここに')) {
     showLoading(true);
-    try { await apiPost({ action: 'delete', id: delId }); } catch(e) {}
-    await loadFromGAS();
+    try {
+      await apiSave(DATA);
+      await loadFromGitHub();
+    } catch(e) { alert('削除失敗: ' + e.message); }
     showLoading(false);
   }
   updateTotalCount();
@@ -1316,7 +1374,6 @@ function updateAuthUI() {
   if (!addBtn) return;
   if (currentUser) {
     addBtn.title = '';
-    // ヘッダーにユーザー表示 & ログアウトボタン
     let info = document.getElementById('authInfo');
     if (!info) {
       info = document.createElement('div');
@@ -1325,7 +1382,8 @@ function updateAuthUI() {
       const btnContainer = document.querySelector('.sp-header-btns') || document.querySelector('.header-btns');
       if (btnContainer) btnContainer.prepend(info);
     }
-    info.innerHTML = `<button onclick="doLogout()" style="background:none;border:1px solid var(--border);color:var(--text-muted);font-size:11px;padding:2px 8px;border-radius:6px;cursor:pointer;font-family:inherit">ログアウト</button>`;
+    const hasToken = !!getGHToken();
+    info.innerHTML = `<button onclick="doLogout()" style="background:none;border:1px solid var(--border);color:var(--text-muted);font-size:11px;padding:2px 8px;border-radius:6px;cursor:pointer;font-family:inherit">ログアウト</button>${!hasToken ? '<button onclick="openTokenModal()" style="background:none;border:1px solid var(--accent);color:var(--accent);font-size:11px;padding:2px 8px;border-radius:6px;cursor:pointer;font-family:inherit">🔑 トークン設定</button>' : ''}`;
   } else {
     const info = document.getElementById('authInfo');
     if (info) info.remove();
@@ -1500,6 +1558,20 @@ window.addEventListener('resize', () => {
   // 現在のフィルタ状態で再描画
   if (typeof filtered !== 'undefined') render();
 });
+
+
+function openTokenModal() {
+  document.getElementById('tokenInput').value = getGHToken();
+  document.getElementById('tokenOverlay').classList.add('open');
+}
+function saveToken() {
+  const t = document.getElementById('tokenInput').value.trim();
+  if (!t) { alert('トークンを入力してください'); return; }
+  saveGHToken(t);
+  document.getElementById('tokenOverlay').classList.remove('open');
+  updateAuthUI();
+  loadFromGitHub();
+}
 
 </script>
 </body>
