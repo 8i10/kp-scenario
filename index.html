@@ -1370,22 +1370,32 @@ function saveSession(s) { localStorage.setItem(SESS_KEY, JSON.stringify(s)); }
 })();
 
 function updateAuthUI() {
-  const addBtn = document.querySelector('.add-btn');
-  if (!addBtn) return;
   if (currentUser) {
-    addBtn.title = '';
+    // authInfoバーをヘッダー直下に固定表示
     let info = document.getElementById('authInfo');
     if (!info) {
       info = document.createElement('div');
       info.id = 'authInfo';
-      info.style.cssText = 'font-size:11px;color:var(--text-muted);display:flex;align-items:center;gap:8px;';
-      const btnContainer = document.querySelector('.sp-header-btns') || document.querySelector('.header-btns');
-      if (btnContainer) btnContainer.prepend(info);
+      info.style.cssText = [
+        'position:fixed','top:0','left:0','right:0','z-index:10000',
+        'background:var(--surface2)','border-bottom:1px solid var(--border)',
+        'padding:4px 14px','display:flex','align-items:center','gap:8px',
+        'font-size:11px','color:var(--text-muted)'
+      ].join(';');
+      document.body.appendChild(info);
     }
-    info.innerHTML = `<button onclick="doLogout()" style="background:none;border:1px solid var(--border);color:var(--text-muted);font-size:11px;padding:2px 8px;border-radius:6px;cursor:pointer;font-family:inherit">ログアウト</button><button onclick="openTokenModal()" style="background:none;border:1px solid var(--accent);color:var(--accent);font-size:11px;padding:2px 8px;border-radius:6px;cursor:pointer;font-family:inherit">🔑 トークン設定</button>`;
+    info.innerHTML = `
+      <span style="flex:1;opacity:0.6">ログイン中</span>
+      <button onclick="openTokenModal()" style="background:none;border:1px solid var(--accent);color:var(--accent);font-size:11px;padding:2px 10px;border-radius:6px;cursor:pointer;font-family:inherit">🔑 トークン設定</button>
+      <button onclick="doLogout()" style="background:none;border:1px solid var(--border);color:var(--text-muted);font-size:11px;padding:2px 10px;border-radius:6px;cursor:pointer;font-family:inherit">ログアウト</button>`;
+    // ヘッダーをずらす
+    const header = document.querySelector('header');
+    if (header) header.style.marginTop = '30px';
   } else {
     const info = document.getElementById('authInfo');
     if (info) info.remove();
+    const header = document.querySelector('header');
+    if (header) header.style.marginTop = '';
   }
 }
 
