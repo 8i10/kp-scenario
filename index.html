@@ -1045,11 +1045,15 @@ async function getFileSha(token) {
 
 // data.jsonを読み込む
 async function apiGet() {
-  // 認証なしで公開リポジトリから取得
-  const url = 'https://raw.githubusercontent.com/' + GH_REPO + '/' + GH_BRANCH + '/' + GH_FILE;
-  const res = await fetch(url + '?t=' + Date.now()); // キャッシュ回避
+  // GitHub Contents APIで取得（キャッシュなし・即時反映）
+  const token = getGHToken();
+  const headers = token ? ghHeaders(token) : { 'Accept': 'application/vnd.github.v3+json' };
+  const res = await fetch(GH_API + '?t=' + Date.now(), { headers });
   if (!res.ok) return [];
-  return await res.json();
+  const json = await res.json();
+  // contentはBase64エンコード済み
+  const decoded = decodeURIComponent(escape(atob(json.content.replace(/\n/g, ''))));
+  return JSON.parse(decoded);
 }
 
 // data.jsonを書き込む（トークン必須）
@@ -1097,14 +1101,12 @@ async function loadFromGitHub() {
   showLoading(true);
   try {
     const rows = await apiGet();
-    if (Array.isArray(rows) && rows.length > 0) {
+    if (Array.isArray(rows)) {
+      // data.jsonが空（[]）でもSCENARIOSにフォールバックしない
       DATA = rows.map((r, i) => ({...r, _idx: i, kp_num: parseInt((r['KP回数']||'#0').replace('#',''))||0}));
-    } else {
-      DATA = JSON.parse(JSON.stringify(SCENARIOS)).map((r,i) => ({...r, _idx: i}));
     }
   } catch(e) {
-    console.warn('GitHub取得失敗、ローカルデータを使用:', e);
-    DATA = JSON.parse(JSON.stringify(SCENARIOS)).map((r,i) => ({...r, _idx: i}));
+    console.warn('GitHub取得失敗:', e);
   }
   showLoading(false);
   updateTotalCount();
