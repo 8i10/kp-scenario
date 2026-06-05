@@ -1037,7 +1037,7 @@ function ghHeaders(token) {
 
 // data.jsonのSHAを取得（更新時に必要）
 async function getFileSha(token) {
-  const res = await fetch(GH_API + '?ref=' + GH_BRANCH, { headers: ghHeaders(token) });
+  const res = await fetch(GH_API + '?ref=' + GH_BRANCH + '&t=' + Date.now(), { headers: ghHeaders(token) });
   if (res.status === 404) return null;
   const json = await res.json();
   return json.sha || null;
@@ -1255,7 +1255,10 @@ async function saveScenario() {
   const kpRaw = document.getElementById('f_kp').value;
   const kpNum = parseInt(kpRaw) || 0;
   const kpStr = '#' + kpNum;
+  // 新規IDを先に付与
+  const isNew = editingIdx === null;
   const row = {
+    'id': isNew ? Date.now().toString() : (DATA[editingIdx].id || Date.now().toString()),
     '名前': name,
     'レーティング': document.getElementById('f_rating').value,
     'システム': document.getElementById('f_system').value.trim(),
@@ -1265,43 +1268,39 @@ async function saveScenario() {
     'ジャンル(主観)': document.getElementById('f_genre').value.trim(),
     '要相談': document.getElementById('f_sodan').checked ? '要相談' : '',
     'memo': document.getElementById('f_memo').value.trim(),
-    '🔰/🚩/🎥/🐔': editingIdx !== null ? DATA[editingIdx]['🔰/🚩/🎥/🐔'] : '',
-    'BOOTH画像リンク': editingIdx !== null ? DATA[editingIdx]['BOOTH画像リンク'] : '',
-    '作成日時': editingIdx !== null ? DATA[editingIdx]['作成日時'] : new Date().toLocaleDateString('ja-JP'),
-    'kp_num': kpNum
+    '🔰/🚩/🎥/🐔': isNew ? '' : (DATA[editingIdx]['🔰/🚩/🎥/🐔'] || ''),
+    'BOOTH画像リンク': isNew ? '' : (DATA[editingIdx]['BOOTH画像リンク'] || ''),
+    '作成日時': isNew ? new Date().toLocaleDateString('ja-JP') : DATA[editingIdx]['作成日時'],
+    'kp_num': kpNum,
+    '_idx': isNew ? (DATA.length > 0 ? Math.max(...DATA.map(r => r._idx ?? 0)) + 1 : 0) : DATA[editingIdx]._idx
   };
-  if (editingIdx !== null) {
-    DATA[editingIdx] = row;
-  } else {
-    row._idx = DATA.length > 0 ? Math.max(...DATA.map(r => r._idx ?? 0)) + 1 : 0;
+  // DATAを更新
+  if (isNew) {
     DATA.push(row);
-  }
-  // GitHub API保存
-  if (!GH_REPO.includes('ここに')) {
-    showLoading(true);
-    try {
-      // idがなければ新規付与
-      if (!row.id) row.id = Date.now().toString();
-      if (editingIdx !== null) {
-        const idx = DATA.findIndex(r => r.id === row.id);
-        if (idx !== -1) DATA[idx] = row; else DATA.push(row);
-      } else {
-        DATA.push(row);
-      }
-      await apiSave(DATA);
-      await loadFromGitHub();
-    } catch(e) {
-      alert('保存失敗: ' + e.message);
-      console.error(e);
-    }
-    showLoading(false);
   } else {
+    DATA[editingIdx] = row;
+  }
+  closeEditDirect();
+  document.getElementById('modalOverlay').classList.remove('open');
+  // GitHub API保存
+  const token = getGHToken();
+  if (!token) {
+    alert('🔑 トークンを設定してください（ログイン後に表示されるボタンから）');
+    updateTotalCount();
+    applyFiltersFromData();
+    return;
+  }
+  showLoading(true);
+  try {
+    await apiSave(DATA);
+    await loadFromGitHub();
+  } catch(e) {
+    alert('保存失敗: ' + e.message);
+    console.error(e);
     updateTotalCount();
     applyFiltersFromData();
   }
-  updateTotalCount();
-  closeEditDirect();
-  document.getElementById('modalOverlay').classList.remove('open');
+  showLoading(false);
 }
 
 async function deleteScenario() {
