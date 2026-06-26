@@ -1174,6 +1174,7 @@ function buildForm(row) {
   const ninzuCustom = ninzuList.includes(ninzuVal) ? '' : ninzuVal;
   const kpNum = (row['KP回数']||'#0').replace('#','');
   const isSodan = !!(row['要相談'] && row['要相談'].trim());
+  const isHeya = heyaCheck(row);
   const delBtn = editingIdx !== null ? '<button class="btn-delete" onclick="deleteScenario()">🗑 削除</button>' : '';
   return `
   <div class="form-group">
@@ -1224,6 +1225,13 @@ function buildForm(row) {
         <span>要相談</span>
       </label>
     </div>
+    <div class="form-group">
+      <label class="form-label">部屋</label>
+      <label style="display:flex;align-items:center;gap:8px;padding:8px 0;cursor:pointer;font-size:13px">
+        <input type="checkbox" id="f_heya" ${isHeya?'checked':''} style="width:16px;height:16px;cursor:pointer;accent-color:var(--accent)">
+        <span>部屋あり（⛩/🐔有）</span>
+      </label>
+    </div>
   </div>
   <div class="form-group">
     <label class="form-label">メモ</label>
@@ -1270,7 +1278,7 @@ async function saveScenario() {
     'ジャンル(主観)': document.getElementById('f_genre').value.trim(),
     '要相談': document.getElementById('f_sodan').checked ? '要相談' : '',
     'memo': document.getElementById('f_memo').value.trim(),
-    '🔰/🚩/🎥/🐔': isNew ? '' : (DATA[editingIdx]['🔰/🚩/🎥/🐔'] || ''),
+    '🔰/🚩/🎥/🐔': (() => { const h = document.getElementById('f_heya').checked; const base = isNew ? '' : (DATA[editingIdx]['🔰/🚩/🎥/🐔'] || ''); if (h && !base.includes('⛩')) return (base ? base + ', ' : '') + '⛩'; if (!h) return base.replace(/,?\s*⛩/g,'').replace(/,?\s*🐔有/g,'').trim(); return base; })(),
     'BOOTH画像リンク': isNew ? '' : (DATA[editingIdx]['BOOTH画像リンク'] || ''),
     '作成日時': isNew ? new Date().toLocaleDateString('ja-JP') : DATA[editingIdx]['作成日時'],
     'kp_num': kpNum,
