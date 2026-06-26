@@ -434,6 +434,14 @@
     transition: border-color 0.2s, color 0.2s;
   }
   .edit-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .genre-tags { display:flex; flex-wrap:wrap; gap:6px; min-height:4px; }
+  .genre-tag { display:inline-flex; align-items:center; gap:4px; background:rgba(126,158,200,.15); border:1px solid rgba(126,158,200,.4); color:var(--accent2); border-radius:14px; padding:3px 10px; font-size:12px; }
+  .genre-tag button { background:none; border:none; color:var(--accent2); cursor:pointer; font-size:13px; padding:0; line-height:1; }
+  .genre-suggest { display:flex; flex-wrap:wrap; gap:5px; margin-top:8px; }
+  .genre-suggest-item { background:var(--surface2); border:1px solid var(--border); color:var(--text-muted); border-radius:12px; padding:2px 9px; font-size:11px; cursor:pointer; transition:all .15s; }
+  .genre-suggest-item:hover { border-color:var(--accent); color:var(--accent); }
+
   /* フォーム */
   .form-group { margin-bottom: 12px; }
   .form-label { display: block; font-size: 11px; color: var(--text-muted); letter-spacing: 0.06em; margin-bottom: 4px; }
@@ -1213,23 +1221,26 @@ function buildForm(row) {
     <label class="form-label">シナリオURL</label>
     <input class="form-input" id="f_url" value="${f(row['シナリオURL'])}" placeholder="https://...">
   </div>
+  <div class="form-group">
+    <label class="form-label">ジャンル（主観）</label>
+    <div id="genreTags" class="genre-tags"></div>
+    <div style="display:flex;gap:6px;margin-top:6px">
+      <input class="form-input" id="f_genre_input" placeholder="タグを入力" style="flex:1" onkeydown="if(event.key==='Enter'){event.preventDefault();addGenreTag(this.value);this.value='';}">
+      <button type="button" class="btn-cancel" style="padding:7px 14px" onclick="const i=document.getElementById('f_genre_input');addGenreTag(i.value);i.value='';">追加</button>
+    </div>
+    <div class="genre-suggest" id="genreSuggest"></div>
+  </div>
   <div class="form-row">
     <div class="form-group">
-      <label class="form-label">ジャンル（主観）</label>
-      <input class="form-input" id="f_genre" value="${f(row['ジャンル(主観)'])}">
-    </div>
-    <div class="form-group">
-      <label class="form-label">要相談</label>
       <label style="display:flex;align-items:center;gap:8px;padding:8px 0;cursor:pointer;font-size:13px">
         <input type="checkbox" id="f_sodan" ${isSodan?'checked':''} style="width:16px;height:16px;cursor:pointer;accent-color:var(--accent)">
         <span>要相談</span>
       </label>
     </div>
     <div class="form-group">
-      <label class="form-label">部屋</label>
       <label style="display:flex;align-items:center;gap:8px;padding:8px 0;cursor:pointer;font-size:13px">
         <input type="checkbox" id="f_heya" ${isHeya?'checked':''} style="width:16px;height:16px;cursor:pointer;accent-color:var(--accent)">
-        <span>部屋あり（⛩/🐔有）</span>
+        <span>部屋あり</span>
       </label>
     </div>
   </div>
@@ -1248,6 +1259,7 @@ function openEditModal() {
   if (editingIdx === null) return;
   document.getElementById('editModalTitle').textContent = '編集：' + DATA[editingIdx]['名前'];
   document.getElementById('editForm').innerHTML = buildForm(DATA[editingIdx]);
+  initGenreTags(DATA[editingIdx]['ジャンル(主観)'] || '');
   document.getElementById('editOverlay').classList.add('open');
 }
 
@@ -1256,6 +1268,7 @@ function openAddModal() {
   const blank = {'名前':'','レーティング':'全年齢','システム':'CoC6th','人数':'','KP回数':'#0','シナリオURL':'','ジャンル(主観)':'','要相談':'','memo':'','作成日時':new Date().toLocaleDateString('ja-JP'),'🔰/🚩/🎥/🐔':'','BOOTH画像リンク':'','kp_num':0};
   document.getElementById('editModalTitle').textContent = 'シナリオを追加';
   document.getElementById('editForm').innerHTML = buildForm(blank);
+  initGenreTags('');
   document.getElementById('editOverlay').classList.add('open');
 }
 
@@ -1275,7 +1288,7 @@ async function saveScenario() {
     '人数': (document.getElementById('f_ninzu').value === '__custom__' ? document.getElementById('f_ninzu_custom').value.trim() : document.getElementById('f_ninzu').value) || '',
     'KP回数': kpStr,
     'シナリオURL': document.getElementById('f_url').value.trim(),
-    'ジャンル(主観)': document.getElementById('f_genre').value.trim(),
+    'ジャンル(主観)': currentGenres.join(', '),
     '要相談': document.getElementById('f_sodan').checked ? '要相談' : '',
     'memo': document.getElementById('f_memo').value.trim(),
     '🔰/🚩/🎥/🐔': (() => { const h = document.getElementById('f_heya').checked; const base = isNew ? '' : (DATA[editingIdx]['🔰/🚩/🎥/🐔'] || ''); if (h && !base.includes('⛩')) return (base ? base + ', ' : '') + '⛩'; if (!h) return base.replace(/,?\s*⛩/g,'').replace(/,?\s*🐔有/g,'').trim(); return base; })(),
@@ -1526,6 +1539,40 @@ applySpLayout();
 window.addEventListener('resize', applySpLayout);
 
 
+
+
+// ===== ジャンルタグ管理 =====
+const GENRE_PRESETS = ['SAN回復','うちよそ','お別れ','刑事','初対面限定','同ｼﾅﾘｵ探索者可','後遺症回復','技能減少','救済要素:有','救済要素:無','新規限定','確定ﾛｽﾄ','継続限定','ｱｳﾄﾛｰ','ﾛｽﾄ探索者可','ﾛｽﾄ救済'];
+let currentGenres = [];
+
+function initGenreTags(str) {
+  currentGenres = (str || '').split(/[,、]/).map(s=>s.trim()).filter(Boolean);
+  renderGenreTags();
+  renderGenreSuggest();
+}
+function renderGenreTags() {
+  const box = document.getElementById('genreTags');
+  if (!box) return;
+  box.innerHTML = currentGenres.map((g,i)=>`<span class="genre-tag">${g}<button type="button" onclick="removeGenreTag(${i})">✕</button></span>`).join('');
+}
+function renderGenreSuggest() {
+  const box = document.getElementById('genreSuggest');
+  if (!box) return;
+  const remain = GENRE_PRESETS.filter(g=>!currentGenres.includes(g));
+  box.innerHTML = remain.map(g=>`<span class="genre-suggest-item" onclick="addGenreTag('${g}')">+ ${g}</span>`).join('');
+}
+function addGenreTag(tag) {
+  tag = (tag||'').trim();
+  if (!tag || currentGenres.includes(tag)) return;
+  currentGenres.push(tag);
+  renderGenreTags();
+  renderGenreSuggest();
+}
+function removeGenreTag(i) {
+  currentGenres.splice(i,1);
+  renderGenreTags();
+  renderGenreSuggest();
+}
 
 // ===== スマホカード表示 =====
 function isSp() { return window.innerWidth <= 640; }
