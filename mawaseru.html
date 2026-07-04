@@ -685,26 +685,13 @@
 </div>
 <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
 <header>
-  <!-- PC・スマホ共通：タイトル行 -->
   <div class="header-inner">
-    <div class="header-left">
+    <div>
       <div class="header-title">⛩ 回せるシナリオ一覧</div>
       <div class="header-sub">TRPG / CoC6th Scenario Library</div>
-      <!-- PC用カウント -->
-      <div class="header-count pc-only" id="totalCount">読み込み中…</div>
     </div>
-    <!-- PC用ボタン群 -->
-    <div class="header-btns pc-only">
+    <div class="header-btns">
       <button class="add-btn" onclick="openAddModal()">＋ 追加</button>
-      <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">☀️</button>
-    </div>
-  </div>
-  <!-- スマホ専用：全Xシナリオ＋ボタン行 -->
-  <div class="sp-header-row">
-    <div class="header-count sp-only" id="totalCountSp">読み込み中…</div>
-    <div class="sp-header-btns">
-      <button class="add-btn" onclick="openAddModal()">＋ 追加</button>
-      <button class="theme-btn sp-theme-btn" id="themeBtnSp" onclick="toggleTheme()">☀️</button>
     </div>
   </div>
 </header>
@@ -1654,8 +1641,7 @@ function saveToken() {
 
 // 編集モード時：閲覧用URL発行ボタンを表示
 if (IS_EDIT_MODE) {
-  const headerBtns = document.querySelector('.header-btns.pc-only');
-  const spHeaderBtns = document.querySelector('.sp-header-btns');
+  const headerBtns = document.querySelector('.header-btns');
   const makeShareBtn = () => {
     const b = document.createElement('button');
     b.className = 'add-btn';
@@ -1664,7 +1650,6 @@ if (IS_EDIT_MODE) {
     return b;
   };
   if (headerBtns) headerBtns.insertBefore(makeShareBtn(), headerBtns.firstChild);
-  if (spHeaderBtns) spHeaderBtns.insertBefore(makeShareBtn(), spHeaderBtns.firstChild);
 }
 function copyViewUrl() {
   const url = location.origin + location.pathname; // editパラメータなし
