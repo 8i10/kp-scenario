@@ -35,14 +35,14 @@
 <body>
 
 <div class="tabbar" id="tabbar">
-  <button class="tab active" data-tab="kaiseru" onclick="switchTab('kaiseru')">回せるシナリオ</button>
   <button class="tab" data-tab="yukitai" onclick="switchTab('yukitai')">行きたいシナリオ</button>
+  <button class="tab active" data-tab="kaiseru" onclick="switchTab('kaiseru')">回せるシナリオ</button>
   <button class="tab" data-tab="rule" onclick="switchTab('rule')">おあげ卓ルール</button>
 </div>
 
 <div class="frame-wrap">
-  <iframe id="frame-kaiseru" class="active" data-src="index.html" title="回せるシナリオ"></iframe>
   <iframe id="frame-yukitai" data-src="yukitai.html" title="行きたいシナリオ"></iframe>
+  <iframe id="frame-kaiseru" class="active" data-src="mawaseru.html" title="回せるシナリオ"></iframe>
   <iframe id="frame-rule" data-src="rule.html" title="卓のルール"></iframe>
 </div>
 
