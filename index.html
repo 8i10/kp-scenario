@@ -16,11 +16,11 @@
   body{background:var(--bg);color:var(--text);font-family:"Zen Kaku Gothic New",sans-serif;display:flex;flex-direction:column;height:100vh;overflow:hidden;}
 
   /* タブバー */
-  .tabbar{background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:stretch;flex-shrink:0;padding:0 8px;overflow-x:auto;}
+  .tabbar{background:#8b0000;border-bottom:1px solid #6b0000;display:flex;align-items:stretch;flex-shrink:0;padding:0 8px;overflow-x:auto;position:sticky;top:0;z-index:1000;}
   .tabbar::-webkit-scrollbar{display:none;}
-  .tab{background:none;border:none;border-bottom:3px solid transparent;color:var(--text-muted);font-family:inherit;font-size:14px;font-weight:500;padding:14px 20px;cursor:pointer;white-space:nowrap;transition:all .15s;display:flex;align-items:center;gap:6px;}
-  .tab:hover{color:var(--text);}
-  .tab.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:700;}
+  .tab{background:none;border:none;border-bottom:3px solid transparent;color:rgba(255,255,255,0.75);font-family:inherit;font-size:13px;font-weight:500;padding:14px 20px;cursor:pointer;white-space:nowrap;transition:all .15s;display:flex;align-items:center;gap:6px;}
+  .tab:hover{color:#ffffff;}
+  .tab.active{color:#ffffff;background:#000000;border-bottom:3px solid #000000;font-weight:700;}
 
   /* iframe領域 */
   .frame-wrap{flex:1;position:relative;overflow:hidden;}
@@ -28,20 +28,20 @@
   iframe.active{display:block;}
 
   @media(max-width:640px){
-    .tab{font-size:13px;padding:12px 14px;}
+    .tab{font-size:12px;padding:12px 14px;}
   }
 </style>
 </head>
 <body>
 
 <div class="tabbar" id="tabbar">
-  <button class="tab active" data-tab="kaiseru" onclick="switchTab('kaiseru')"> 回せるシナリオ</button>
+  <button class="tab active" data-tab="kaiseru" onclick="switchTab('kaiseru')">回せるシナリオ</button>
   <button class="tab" data-tab="yukitai" onclick="switchTab('yukitai')">行きたいシナリオ</button>
   <button class="tab" data-tab="rule" onclick="switchTab('rule')">おあげ卓ルール</button>
 </div>
 
 <div class="frame-wrap">
-  <iframe id="frame-kaiseru" class="active" data-src="mawaseru.html" title="回せるシナリオ"></iframe>
+  <iframe id="frame-kaiseru" class="active" data-src="index.html" title="回せるシナリオ"></iframe>
   <iframe id="frame-yukitai" data-src="yukitai.html" title="行きたいシナリオ"></iframe>
   <iframe id="frame-rule" data-src="rule.html" title="卓のルール"></iframe>
 </div>
