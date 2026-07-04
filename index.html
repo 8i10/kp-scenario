@@ -35,8 +35,8 @@
 <body>
 
 <div class="tabbar" id="tabbar">
-  <button class="tab" data-tab="yukitai" onclick="switchTab('yukitai')">行きたいシナリオ</button>
-  <button class="tab active" data-tab="kaiseru" onclick="switchTab('kaiseru')">回せるシナリオ</button>
+  <button class="tab active" data-tab="yukitai" onclick="switchTab('yukitai')">行きたいシナリオ</button>
+  <button class="tab" data-tab="kaiseru" onclick="switchTab('kaiseru')">回せるシナリオ</button>
   <button class="tab" data-tab="rule" onclick="switchTab('rule')">おあげ卓ルール</button>
 </div>
 
@@ -68,7 +68,7 @@ function switchTab(tab){
 }
 
 // 初期タブを読み込み
-loadFrame('kaiseru');
+loadFrame('yukitai');
 </script>
 </body>
 </html>
