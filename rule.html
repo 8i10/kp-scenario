@@ -27,6 +27,11 @@
 
   /* 閲覧表示 */
   .rule-view{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px 28px;line-height:1;font-size:11px;font-family:"Zen Kaku Gothic New",sans-serif;}
+
+  .rule-sec{margin-bottom:22px;}
+  .rule-sec-head{font-size:16px;font-weight:700;color:var(--accent);margin-bottom:8px;line-height:2.0;}
+  .rule-sec-head::before{content:"🔶 ";}
+  .rule-sec-body{font-size:11px;line-height:1.7;}
   .rule-view h1{font-size:20px;font-weight:700;color:var(--accent);margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--border);line-height:2.0;}
   .rule-view h1:first-child{margin-top:0;}
   .rule-view h2{font-size:16px;font-weight:700;color:var(--text);margin:18px 0 8px;line-height:2.0;}
@@ -52,6 +57,15 @@
   .editor-wrap.active{display:block;}
   .editor-textarea{width:100%;min-height:400px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;font-family:"Zen Kaku Gothic New",sans-serif;font-size:13px;line-height:1.6;color:var(--text);outline:none;resize:vertical;}
   .editor-textarea:focus{border-color:var(--accent);}
+
+  .sec-edit{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:10px;}
+  .sec-edit-head{display:flex;gap:8px;align-items:center;margin-bottom:8px;}
+  .sec-edit-head .form-input{flex:1;font-weight:700;}
+  .sec-del{background:rgba(200,126,126,.1);border:1px solid rgba(200,126,126,.4);color:var(--r18);border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;font-family:inherit;flex-shrink:0;}
+  .sec-body{width:100%;min-height:80px;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:10px;font-family:"Zen Kaku Gothic New",sans-serif;font-size:12px;line-height:1.6;color:var(--text);outline:none;resize:vertical;}
+  .sec-body:focus{border-color:var(--accent);}
+  .sec-move{display:flex;flex-direction:column;gap:2px;flex-shrink:0;}
+  .sec-move button{background:var(--surface);border:1px solid var(--border);color:var(--text-muted);border-radius:4px;width:24px;height:18px;font-size:10px;cursor:pointer;line-height:1;padding:0;}
   .editor-hint{font-size:11px;color:var(--text-muted);margin:8px 0;line-height:1.8;}
   .editor-actions{display:flex;gap:8px;margin-top:12px;justify-content:flex-end;}
   .btn-save{background:rgba(200,169,126,.15);border:1px solid var(--accent);color:var(--accent);padding:8px 20px;border-radius:8px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;}
@@ -115,10 +129,11 @@
   <div class="rule-view" id="ruleView"></div>
   <div class="editor-wrap" id="editorWrap">
     <div class="editor-hint">
-      <strong>Discord記法：</strong>
-      **太字** / *斜体* / __下線__ / ~~取り消し線~~ / `コード` / ```コードブロック``` / &gt; 引用 / ||スポイラー|| / # 見出し / ## 中見出し / - リスト
+      <strong>Discord記法（内容欄）：</strong>
+      **太字** / *斜体* / __下線__ / ~~取り消し線~~ / `コード` / ||スポイラー|| / - リスト
     </div>
-    <textarea class="editor-textarea" id="editorText" placeholder="ここにルールを記入…"></textarea>
+    <div id="sectionList"></div>
+    <button class="btn" style="margin-top:10px" onclick="addSection()">＋ 見出しを追加</button>
     <div class="editor-actions">
       <button class="btn-cancel" onclick="cancelEdit()">キャンセル</button>
       <button class="btn-save" onclick="saveRules()">保存</button>
@@ -131,7 +146,7 @@ const IS_EDIT_MODE = new URLSearchParams(location.search).get('edit') === '1';
 const GH_REPO='8i10/kp-scenario', GH_BRANCH='main', GH_FILE='rules.json';
 const GH_API='https://api.github.com/repos/'+GH_REPO+'/contents/'+GH_FILE;
 const GH_TOKEN_KEY='gh_token_v1';
-let ruleText='';
+let sections=[]; // [{heading, body}]
 let editing=false;
 
 function getGHToken(){return localStorage.getItem(GH_TOKEN_KEY)||'';}
@@ -145,7 +160,14 @@ async function apiSave(data){const t=getGHToken();if(!t)throw new Error('トー�
 
 async function loadRules(){
   showLoading(true);
-  try{const d=await apiGet();if(d&&typeof d.text==='string')ruleText=d.text;}catch(e){console.warn(e);}
+  try{
+    const d=await apiGet();
+    if(d&&Array.isArray(d.sections))sections=d.sections;
+    else if(d&&typeof d.text==='string'){
+      // 旧形式（単一テキスト）を1セクションに変換
+      sections=d.text.trim()?[{heading:'',body:d.text}]:[];
+    }
+  }catch(e){console.warn(e);}
   showLoading(false);
   renderRules();
 }
@@ -171,7 +193,15 @@ function renderMarkdown(src){
     if(/^[-*] (.*)/.test(line)){if(!inList){html+='<ul>';inList=true;}html+='<li>'+inline(esc(line.replace(/^[-*] /,'')))+'</li>';continue;}
     flushList();
     if(line.trim()==='')html+='<br>';
-    else html+='<p>'+inline(esc(line))+'</p>';
+    else{
+      const m=line.match(/^([ \u3000]+)/);
+      let escaped=esc(line);
+      if(m){
+        const indent=m[1].replace(/ /g,'&nbsp;');
+        escaped=indent+esc(line.slice(m[1].length));
+      }
+      html+='<p>'+inline(escaped)+'</p>';
+    }
   }
   flushList();
   if(inCode)html+='<pre><code>'+esc(codeBuf.join('\n'))+'</code></pre>';
@@ -190,7 +220,12 @@ function inline(s){
 
 function renderRules(){
   const v=document.getElementById('ruleView');
-  v.innerHTML=ruleText.trim()?renderMarkdown(ruleText):'<p style="color:var(--text-muted)">まだルールが記入されていません。</p>';
+  if(!sections.length){v.innerHTML='<p style="color:var(--text-muted)">まだルールが記入されていません。</p>';return;}
+  v.innerHTML=sections.map(s=>{
+    const head=s.heading?'<div class="rule-sec-head">'+s.heading.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</div>':'';
+    const body=s.body?'<div class="rule-sec-body">'+renderMarkdown(s.body)+'</div>':'';
+    return '<div class="rule-sec">'+head+body+'</div>';
+  }).join('');
 }
 
 function toggleEdit(){
@@ -198,16 +233,46 @@ function toggleEdit(){
   document.getElementById('editorWrap').classList.toggle('active',editing);
   document.getElementById('ruleView').style.display=editing?'none':'block';
   document.getElementById('editToggle').textContent=editing?'👁 プレビュー':'✏️ 編集';
-  if(editing)document.getElementById('editorText').value=ruleText;
+  if(editing)renderSectionEditor();
 }
+
+function renderSectionEditor(){
+  const box=document.getElementById('sectionList');
+  const esc=s=>(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+  box.innerHTML=sections.map((s,i)=>`
+    <div class="sec-edit">
+      <div class="sec-edit-head">
+        <div class="sec-move">
+          <button onclick="moveSection(${i},-1)" ${i===0?'disabled':''}>▲</button>
+          <button onclick="moveSection(${i},1)" ${i===sections.length-1?'disabled':''}>▼</button>
+        </div>
+        <input class="form-input" placeholder="見出し（🔶が自動で付きます）" value="${esc(s.heading)}" oninput="sections[${i}].heading=this.value">
+        <button class="sec-del" onclick="delSection(${i})">削除</button>
+      </div>
+      <textarea class="sec-body" placeholder="内容（Discord記法対応）" oninput="sections[${i}].body=this.value" onkeydown="handleTab(event,${i})">${esc(s.body)}</textarea>
+    </div>
+  `).join('');
+}
+function handleTab(e,i){
+  if(e.key!=='Tab')return;
+  e.preventDefault();
+  const ta=e.target;
+  const start=ta.selectionStart, end=ta.selectionEnd;
+  const indent='\u3000'; // 全角スペース1つ
+  ta.value=ta.value.slice(0,start)+indent+ta.value.slice(end);
+  ta.selectionStart=ta.selectionEnd=start+indent.length;
+  sections[i].body=ta.value;
+}
+function addSection(){sections.push({heading:'',body:''});renderSectionEditor();}
+function delSection(i){if(!confirm('この見出しを削除しますか？'))return;sections.splice(i,1);renderSectionEditor();}
+function moveSection(i,dir){const j=i+dir;if(j<0||j>=sections.length)return;[sections[i],sections[j]]=[sections[j],sections[i]];renderSectionEditor();}
 function cancelEdit(){editing=true;toggleEdit();}
 
 async function saveRules(){
-  ruleText=document.getElementById('editorText').value;
   const t=getGHToken();
   if(!t){alert('🔑 トークンを設定してください');return;}
   showLoading(true);
-  try{await apiSave({text:ruleText});await loadRules();editing=true;toggleEdit();}
+  try{await apiSave({sections});await loadRules();editing=true;toggleEdit();}
   catch(e){alert('保存失敗: '+e.message);}
   showLoading(false);
 }
