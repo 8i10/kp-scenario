@@ -36,7 +36,7 @@
   .rule-view h1:first-child{margin-top:0;}
   .rule-view h2{font-size:16px;font-weight:700;color:var(--text);margin:18px 0 8px;line-height:2.0;}
   .rule-view h2::before{content:"🔶 ";}
-  .rule-view h3{font-size:13px;font-weight:700;margin:14px 0 6px;padding-left:8px;border-left:2px solid var(--text-muted);color:var(--text);line-height:2.0;}
+  .rule-view h3{font-size:12px;font-weight:700;margin:14px 0 6px;padding-left:8px;border-left:2px solid var(--text-muted);color:var(--text);line-height:2.0;}
   .rule-view p{margin:8px 0;}
   .rule-view ul{margin:8px 0 8px 24px;}
   .rule-view li{margin:3px 0;line-height:1.6;}
@@ -62,7 +62,7 @@
   .sec-edit-head{display:flex;gap:8px;align-items:center;margin-bottom:8px;}
   .sec-edit-head .form-input{flex:1;font-weight:700;}
   .sec-del{background:rgba(200,126,126,.1);border:1px solid rgba(200,126,126,.4);color:var(--r18);border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;font-family:inherit;flex-shrink:0;}
-  .sec-body{width:100%;min-height:80px;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:10px;font-family:"Zen Kaku Gothic New",sans-serif;font-size:12px;line-height:1.6;color:var(--text);outline:none;resize:vertical;}
+  .sec-body{width:100%;min-height:80px;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:10px;font-family:"Zen Kaku Gothic New",sans-serif;font-size:12px;line-height:1.6;color:var(--text);outline:none;resize:none;overflow:hidden;box-sizing:border-box;}
   .sec-body:focus{border-color:var(--accent);}
   .sec-move{display:flex;flex-direction:column;gap:2px;flex-shrink:0;}
   .sec-move button{background:var(--surface);border:1px solid var(--border);color:var(--text-muted);border-radius:4px;width:24px;height:18px;font-size:10px;cursor:pointer;line-height:1;padding:0;}
@@ -249,10 +249,12 @@ function renderSectionEditor(){
         <input class="form-input" placeholder="見出し（🔶が自動で付きます）" value="${esc(s.heading)}" oninput="sections[${i}].heading=this.value">
         <button class="sec-del" onclick="delSection(${i})">削除</button>
       </div>
-      <textarea class="sec-body" placeholder="内容（Discord記法対応）" oninput="sections[${i}].body=this.value" onkeydown="handleTab(event,${i})">${esc(s.body)}</textarea>
+      <textarea class="sec-body" placeholder="内容（Discord記法対応）" oninput="sections[${i}].body=this.value;autoGrow(this)" onkeydown="handleTab(event,${i})">${esc(s.body)}</textarea>
     </div>
   `).join('');
+  document.querySelectorAll('.sec-body').forEach(autoGrow);
 }
+function autoGrow(ta){ta.style.height='auto';ta.style.height=ta.scrollHeight+'px';}
 function handleTab(e,i){
   if(e.key!=='Tab')return;
   e.preventDefault();
@@ -262,6 +264,7 @@ function handleTab(e,i){
   ta.value=ta.value.slice(0,start)+indent+ta.value.slice(end);
   ta.selectionStart=ta.selectionEnd=start+indent.length;
   sections[i].body=ta.value;
+  autoGrow(ta);
 }
 function addSection(){sections.push({heading:'',body:''});renderSectionEditor();}
 function delSection(i){if(!confirm('この見出しを削除しますか？'))return;sections.splice(i,1);renderSectionEditor();}
