@@ -12,7 +12,7 @@
     --surface: #16161f;
     --surface2: #1e1e2e;
     --border: #2a2a3d;
-    --accent: #c8a97e;
+    --accent: #999999;
     --accent2: #7e9ec8;
     --text: #e8e4da;
     --text-muted: #8a8499;
@@ -24,7 +24,7 @@
     --header-bg2: #1a1428;
     --shadow: rgba(0,0,0,0.4);
     --modal-overlay: rgba(0,0,0,0.75);
-    --hover-row: rgba(200,169,126,0.05);
+    --hover-row: rgba(0,0,0,0.05);
     --scrollbar-thumb: #2a2a3d;
     --scrollbar-thumb-hover: #3a3a5a;
     --theme-icon: "🌙";
@@ -74,7 +74,7 @@
     position: absolute;
     top: -40px; left: -40px;
     width: 200px; height: 200px;
-    background: radial-gradient(circle, rgba(200,169,126,0.12) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(0,0,0,0.12) 0%, transparent 70%);
     pointer-events: none;
   }
   .header-inner {
@@ -108,8 +108,8 @@
   .header-count {
     display: inline-block;
     margin-top: 8px;
-    background: rgba(200,169,126,0.1);
-    border: 1px solid rgba(200,169,126,0.3);
+    background: rgba(0,0,0,0.1);
+    border: 1px solid rgba(0,0,0,0.3);
     padding: 3px 12px;
     border-radius: 20px;
     font-size: 12px;
@@ -289,7 +289,7 @@
     white-space: nowrap;
   }
   .rating-all { background: rgba(126,200,126,0.85); color: #1a2e1a; }
-  .rating-r15 { background: rgba(200,169,126,0.85); color: #2e1a00; }
+  .rating-r15 { background: rgba(0,0,0,0.85); color: #2e1a00; }
   .rating-r18 { background: rgba(200,126,126,0.85); color: #2e0000; }
   .rating-r18g { background: rgba(180,60,60,0.9); color: #fff; }
   body.light .rating-all { background: rgba(80,160,80,0.2); color: #1a4a1a; border: 1px solid rgba(80,160,80,0.4); }
@@ -411,8 +411,8 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: rgba(200,169,126,0.12);
-    border: 1px solid rgba(200,169,126,0.35);
+    background: rgba(0,0,0,0.12);
+    border: 1px solid rgba(0,0,0,0.35);
     color: var(--accent);
     padding: 7px 16px;
     border-radius: 8px;
@@ -421,7 +421,7 @@
     font-weight: 700;
     transition: background 0.2s;
   }
-  .modal-link:hover { background: rgba(200,169,126,0.22); }
+  .modal-link:hover { background: rgba(0,0,0,0.22); }
   .edit-btn {
     background: var(--surface2);
     border: 1px solid var(--border);
@@ -474,7 +474,7 @@
   .form-row .form-group { flex: 1; }
   .form-actions { display: flex; gap: 8px; margin-top: 16px; justify-content: flex-end; }
   .btn-save {
-    background: rgba(200,169,126,0.15);
+    background: rgba(0,0,0,0.15);
     border: 1px solid var(--accent);
     color: var(--accent);
     padding: 8px 20px;
@@ -485,7 +485,7 @@
     cursor: pointer;
     transition: background 0.2s;
   }
-  .btn-save:hover { background: rgba(200,169,126,0.28); }
+  .btn-save:hover { background: rgba(0,0,0,0.28); }
   .btn-delete {
     background: rgba(200,126,126,0.1);
     border: 1px solid rgba(200,126,126,0.4);
@@ -514,8 +514,8 @@
   .btn-cancel:hover { background: var(--border); }
   /* ヘッダーの追加ボタン */
   .add-btn {
-    background: rgba(200,169,126,0.12);
-    border: 1px solid rgba(200,169,126,0.4);
+    background: rgba(0,0,0,0.12);
+    border: 1px solid rgba(0,0,0,0.4);
     color: var(--accent);
     padding: 6px 14px;
     border-radius: 8px;
@@ -526,7 +526,7 @@
     transition: background 0.2s;
     white-space: nowrap;
   }
-  .add-btn:hover { background: rgba(200,169,126,0.22); }
+  .add-btn:hover { background: rgba(0,0,0,0.22); }
   .modal-close {
     position: absolute;
     top: 0;
@@ -681,7 +681,7 @@
 <body class="light">
 
 
-<div id="loadingBanner" style="display:none;position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(200,169,126,0.15);backdrop-filter:blur(4px);padding:10px;justify-content:center;align-items:center;gap:8px;font-size:13px;color:var(--accent);border-bottom:1px solid var(--border);">
+<div id="loadingBanner" style="display:none;position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(0,0,0,0.15);backdrop-filter:blur(4px);padding:10px;justify-content:center;align-items:center;gap:8px;font-size:13px;color:var(--accent);border-bottom:1px solid var(--border);">
   <span style="animation:spin 1s linear infinite;display:inline-block">⏳</span> 同期中…
 </div>
 <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
