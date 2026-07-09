@@ -370,6 +370,14 @@
     display: flex;
     border-bottom: 1px solid var(--border);
   }
+
+  .modal-comment-acc { margin-top: 8px; }
+  .comment-toggle { width:100%; text-align:left; background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:8px 12px; font-family:inherit; font-size:12px; color:var(--text); cursor:pointer; display:flex; align-items:center; gap:6px; }
+  .comment-toggle:hover { border-color:var(--accent); }
+  .comment-arrow { margin-left:auto; transition:transform .2s; font-size:10px; }
+  .modal-comment-acc.open .comment-arrow { transform:rotate(180deg); }
+  .comment-body { display:none; padding:10px 12px; font-size:12px; line-height:1.6; color:var(--text); background:var(--surface); border:1px solid var(--border); border-top:none; border-radius:0 0 8px 8px; }
+  .modal-comment-acc.open .comment-body { display:block; }
   .modal-cell {
     flex: 1;
     display: flex;
@@ -936,6 +944,7 @@ function openModal(row) {
   const sodan = row['要相談'] || '';
   const memo = row['memo'] || '';
   const genre = row['ジャンル(主観)'] || '';
+  const comment = row['comment'] || '';
   const date = (row['作成日時'] || '').replace(/\s+\d+:\d+$/, ''); // 時刻除去
 
   // レーティング ＋ システム（横並び）
@@ -963,10 +972,16 @@ function openModal(row) {
   // メモ（常に表示）
   const memoHtml = `<div class="modal-row"><span class="modal-label">メモ</span><span class="modal-memo-val">${memo}</span></div>`;
 
+  // 一言コメント（アコーディオン）
+  const commentHtml = comment ? `<div class="modal-comment-acc">
+    <button class="comment-toggle" onclick="this.parentElement.classList.toggle('open')">💬 一言コメント <span class="comment-arrow">▼</span></button>
+    <div class="comment-body">${comment.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')}</div>
+  </div>` : '';
+
   // 追加日
   const dateHtml = `<div class="modal-row"><span class="modal-label">追加日</span><span class="modal-val">${date || '—'}</span></div>`;
 
-  document.getElementById('modalRows').innerHTML = row1 + row2 + row3 + genreHtml + memoHtml + dateHtml;
+  document.getElementById('modalRows').innerHTML = row1 + row2 + row3 + genreHtml + memoHtml + commentHtml + dateHtml;
   document.getElementById('modalGenreBox').innerHTML = '';
 
   const link = document.getElementById('modalLink');
@@ -1247,6 +1262,10 @@ function buildForm(row) {
     <label class="form-label">メモ</label>
     <textarea class="form-textarea" id="f_memo">${f(row['memo'])}</textarea>
   </div>
+  <div class="form-group">
+    <label class="form-label">一言コメント（閲覧時アコーディオンで開閉）</label>
+    <textarea class="form-textarea" id="f_comment">${f(row['comment'])}</textarea>
+  </div>
   <div class="form-actions">
     ${delBtn}
     <button class="btn-cancel" onclick="closeEditDirect()">キャンセル</button>
@@ -1264,7 +1283,7 @@ function openEditModal() {
 
 function openAddModal() {
   editingIdx = null;
-  const blank = {'名前':'','レーティング':'全年齢','システム':'CoC6th','人数':'','KP回数':'#0','シナリオURL':'','ジャンル(主観)':'','要相談':'','memo':'','作成日時':new Date().toLocaleDateString('ja-JP'),'🔰/🚩/🎥/🐔':'','BOOTH画像リンク':'','kp_num':0};
+  const blank = {'名前':'','レーティング':'全年齢','システム':'CoC6th','人数':'','KP回数':'#0','シナリオURL':'','ジャンル(主観)':'','要相談':'','memo':'','comment':'','作成日時':new Date().toLocaleDateString('ja-JP'),'🔰/🚩/🎥/🐔':'','BOOTH画像リンク':'','kp_num':0};
   document.getElementById('editModalTitle').textContent = 'シナリオを追加';
   document.getElementById('editForm').innerHTML = buildForm(blank);
   initGenreTags('');
@@ -1290,6 +1309,7 @@ async function saveScenario() {
     'ジャンル(主観)': currentGenres.join(', '),
     '要相談': document.getElementById('f_sodan').checked ? '要相談' : '',
     'memo': document.getElementById('f_memo').value.trim(),
+    'comment': document.getElementById('f_comment').value.trim(),
     '🔰/🚩/🎥/🐔': (() => { const h = document.getElementById('f_heya').checked; const base = isNew ? '' : (DATA[editingIdx]['🔰/🚩/🎥/🐔'] || ''); if (h && !base.includes('⛩')) return (base ? base + ', ' : '') + '⛩'; if (!h) return base.replace(/,?\s*⛩/g,'').replace(/,?\s*🐔有/g,'').trim(); return base; })(),
     'BOOTH画像リンク': isNew ? '' : (DATA[editingIdx]['BOOTH画像リンク'] || ''),
     '作成日時': isNew ? new Date().toLocaleDateString('ja-JP') : DATA[editingIdx]['作成日時'],
