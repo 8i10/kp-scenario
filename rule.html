@@ -15,7 +15,7 @@
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
   body{background:var(--bg);color:var(--text);font-family:"Zen Kaku Gothic New",sans-serif;min-height:100vh;}
 
-  header{background:var(--surface);border-bottom:1px solid var(--border);padding:18px 24px 14px;position:sticky;top:0;z-index:100;}
+  header{background:var(--surface);border-bottom:1px solid var(--border);padding:18px 24px 14px;position:static;}
   .header-inner{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
   .header-title{font-family:"Noto Serif JP",serif;font-size:20px;letter-spacing:.05em;color:var(--accent);}
   .header-sub{font-size:11px;color:var(--text-muted);margin-top:2px;letter-spacing:.08em;}
@@ -95,8 +95,43 @@
     .rule-view{padding:16px 18px;}
   }
 </style>
+
+<style>
+/* ===== 共通ヘッダー（EITHIOPHILE） ===== */
+.eth-fix{position:sticky;top:0;z-index:1200}
+header.eth{background:#8b0000}
+.eth-inner{max-width:860px;margin:0 auto;padding:11px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.eth-title{font-size:17px;font-weight:800;color:#ffffff;letter-spacing:.30em;font-family:Arial,Helvetica,sans-serif}
+.eth-navwrap{position:relative}
+.eth-navbtn{background:transparent;border:1px solid rgba(255,255,255,.6);border-radius:6px;padding:4px 11px;font-size:16px;line-height:1.2;cursor:pointer;color:#fff;font-family:inherit}
+.eth-navbtn:hover{background:rgba(255,255,255,.15)}
+.eth-menu{display:none;position:absolute;top:calc(100% + 6px);right:0;z-index:1300;background:#ffffff;border:1px solid #d4d4d4;border-radius:8px;min-width:200px;max-height:70vh;overflow-y:auto;box-shadow:0 6px 20px rgba(0,0,0,.18);padding:6px}
+.eth-menu.open{display:block}
+.eth-mtab{display:block;width:100%;text-align:left;background:transparent;border:none;color:#222;padding:9px 12px;font-size:14px;cursor:pointer;white-space:nowrap;font-family:inherit;border-radius:6px}
+.eth-mtab:hover{background:#ececec}
+.eth-mtab.active{background:#8b0000;color:#fff;font-weight:700}
+.eth-tabbar{background:#ffffff;border-bottom:1px solid #d4d4d4;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.eth-tabbar-inner{max-width:860px;margin:0 auto;display:flex}
+.eth-tab{background:transparent;border:none;border-bottom:2px solid transparent;color:#777;padding:8px 16px;font-size:13px;cursor:pointer;white-space:nowrap;font-family:inherit}
+.eth-tab:hover{color:#222}
+.eth-tab.active{color:#222;font-weight:700;border-bottom-color:#8b0000}
+</style>
 </head>
 <body>
+
+<div class="eth-fix">
+  <header class="eth">
+    <div class="eth-inner">
+      <div class="eth-title">EITHIOPHILE</div>
+      <div class="eth-navwrap">
+        <button class="eth-navbtn" id="ethNavBtn" aria-label="メニュー">≡</button>
+        <div class="eth-menu" id="ethNavMenu"></div>
+      </div>
+    </div>
+  </header>
+  <nav class="eth-tabbar" id="ethTabbar" style="display:none"><div class="eth-tabbar-inner" id="ethTabbarInner"></div></nav>
+</div>
+
 
 <div id="loadingBanner"><span class="spin">⏳</span> 同期中…</div>
 
@@ -291,5 +326,81 @@ function copyViewUrl(){
 if(IS_EDIT_MODE)document.getElementById('editBtns').style.display='flex';
 loadRules();
 </script>
+
+<script>
+/* ===== 共通ヘッダー（大ページ ≡メニュー / 小ページタブ） ===== */
+(function(){
+  var REPO   = "8i10/kp-scenario";
+  var BRANCH = "main";
+  var JSON_URL = "https://raw.githubusercontent.com/"+REPO+"/"+BRANCH+"/profile.json";
+  var HOME = "index.html";
+  var EDIT = new URLSearchParams(location.search).get("edit") === "1";
+  var SELF = (location.pathname.split("/").pop() || "index.html").toLowerCase();
+
+  function withEdit(u){
+    if(!EDIT) return u;
+    return u + (u.indexOf("?") >= 0 ? "&" : "?") + "edit=1";
+  }
+  function fileOf(u){ return String(u||"").split("?")[0].split("/").pop().toLowerCase(); }
+  function isSelf(u){ return !!u && fileOf(u) === SELF; }
+
+  var menu = document.getElementById("ethNavMenu");
+  var btn  = document.getElementById("ethNavBtn");
+  function closeMenu(){ menu.classList.remove("open"); }
+  btn.addEventListener("click", function(e){ e.stopPropagation(); menu.classList.toggle("open"); });
+  document.addEventListener("click", function(e){
+    var w = document.querySelector(".eth-navwrap");
+    if(w && !w.contains(e.target)) closeMenu();
+  });
+
+  function majorHref(m){
+    if(m.url) return withEdit(m.url);
+    var ps = m.pages || [];
+    if(ps.length && ps.every(function(p){ return !!p.url; })) return withEdit(ps[0].url);
+    return withEdit(HOME + "?major=" + encodeURIComponent(m.id || ""));
+  }
+  function pageHref(m, p){
+    if(p.url) return withEdit(p.url);
+    return withEdit(HOME + "?major=" + encodeURIComponent(m.id || "") + "&page=" + encodeURIComponent(p.id || ""));
+  }
+
+  fetch(JSON_URL + "?t=" + Date.now())
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(j){
+      var majors = (j && Array.isArray(j.majors)) ? j.majors : [];
+      var cur = null;
+      majors.forEach(function(m){
+        if(isSelf(m.url)) cur = m;
+        (m.pages || []).forEach(function(p){ if(isSelf(p.url)) cur = m; });
+      });
+
+      menu.innerHTML = "";
+      majors.forEach(function(m){
+        var b = document.createElement("button");
+        var here = (cur && m.id === cur.id);
+        b.className = "eth-mtab" + (here ? " active" : "");
+        b.textContent = (m.name || "(無題)") + (here ? "" : " ↗");
+        b.addEventListener("click", function(){ closeMenu(); location.href = majorHref(m); });
+        menu.appendChild(b);
+      });
+
+      var bar = document.getElementById("ethTabbar");
+      var inner = document.getElementById("ethTabbarInner");
+      inner.innerHTML = "";
+      if(cur && (cur.pages || []).length > 1){
+        bar.style.display = "";
+        cur.pages.forEach(function(p){
+          var b = document.createElement("button");
+          b.className = "eth-tab" + (isSelf(p.url) ? " active" : "");
+          b.textContent = p.name || "(無題)";
+          b.addEventListener("click", function(){ location.href = pageHref(cur, p); });
+          inner.appendChild(b);
+        });
+      }
+    })
+    .catch(function(){ /* 取得失敗時はメニュー空 */ });
+})();
+</script>
+
 </body>
 </html>
