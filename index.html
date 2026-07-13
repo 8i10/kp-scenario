@@ -716,6 +716,9 @@ function applyPages(){
   closePageModal();
   renderMenus();
   if(editing) renderEdit(); else renderView();
+
+  /* ページ構成は即保存（保存しないと他ページのメニューに反映されないため） */
+  persist().then(function(){ alert('ページ構成を保存しました'); }).catch(function(){});
 }
 
 /* ========== 編集モード ========== */
@@ -803,12 +806,16 @@ function getFileSha(token){
     .then(function(j){ return j ? j.sha : null; })
     .catch(function(){ return null; });
 }
-function saveProfile(){
+/* DATA を profile.json へ保存（共通） */
+function persist(){
   const token = getGHToken();
-  if(!token){ alert('先に GitHub Token を設定してください'); openTokenModal(); return; }
-  collectEdit();
+  if(!token){
+    alert('先に GitHub Token を設定してください（保存されていません）');
+    openTokenModal();
+    return Promise.reject(new Error('no token'));
+  }
   showLoading(true);
-  getFileSha(token).then(function(sha){
+  return getFileSha(token).then(function(sha){
     const content = btoa(unescape(encodeURIComponent(JSON.stringify(DATA, null, 2))));
     const body = { message:'update profile.json', content:content, branch:GH_BRANCH };
     if(sha) body.sha = sha;
@@ -816,16 +823,24 @@ function saveProfile(){
   }).then(function(r){
     showLoading(false);
     if(!r.ok) throw new Error('save failed: ' + r.status);
+    return true;
+  }).catch(function(e){
+    showLoading(false);
+    alert('保存に失敗しました：' + e.message);
+    throw e;
+  });
+}
+
+function saveProfile(){
+  collectEdit();
+  persist().then(function(){
     alert('保存しました');
     editing = false;
     document.getElementById('editorWrap').classList.remove('open');
     document.getElementById('viewWrap').style.display = '';
     document.getElementById('editToggle').textContent = '✏️ 編集';
     renderView();
-  }).catch(function(e){
-    showLoading(false);
-    alert('保存に失敗しました：' + e.message);
-  });
+  }).catch(function(){});
 }
 
 /* ========== 初期化 ========== */
