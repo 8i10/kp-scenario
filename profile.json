@@ -1,9 +1,9 @@
 {
   "profile": {
-    "icon": "https://www.dropbox.com/scl/fi/60z8nwi4bw0uuyirb69jj/koma2.png?rlkey=kkgr0gb8b377030ljk03t5akw&dl=0",
-    "name": "衣斗／瑛斗",
+    "icon": "",
+    "name": "",
     "catch": "",
-    "x": "EiThiophile",
+    "x": "",
     "discord": "",
     "career": "",
     "system": "",
@@ -37,13 +37,6 @@
           "sections": []
         },
         {
-          "id": "p17839814962048524",
-          "name": "地雷・苦手",
-          "url": "jirai.html",
-          "type": "free",
-          "sections": []
-        },
-        {
           "id": "p17839815141289488",
           "name": "行きたいシナリオ",
           "url": "yukitai.html",
@@ -61,6 +54,34 @@
           "id": "p1783981523135468",
           "name": "おあげ卓ルール",
           "url": "rule.html",
+          "type": "free",
+          "sections": []
+        }
+      ]
+    },
+    {
+      "id": "p1783986731093852",
+      "name": "地雷・苦手",
+      "url": "",
+      "pages": [
+        {
+          "id": "p17839867310933531",
+          "name": "地雷・苦手",
+          "url": "jirai.html",
+          "type": "free",
+          "sections": []
+        },
+        {
+          "id": "p17839867821952393",
+          "name": "地雷チェックシート①",
+          "url": "checksheet.html",
+          "type": "free",
+          "sections": []
+        },
+        {
+          "id": "p17839867910864862",
+          "name": "地雷チェックシート②",
+          "url": "checksheet2.html",
           "type": "free",
           "sections": []
         }
