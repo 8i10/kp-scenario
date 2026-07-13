@@ -1,0 +1,61 @@
+{
+  "profile": {},
+  "majors": [
+    {
+      "id": "p17839814469165598",
+      "name": "プロフィール",
+      "url": "",
+      "pages": [
+        {
+          "id": "p17839814469166017",
+          "name": "ページ1",
+          "url": "",
+          "type": "profile",
+          "sections": []
+        }
+      ]
+    },
+    {
+      "id": "p17839814819802233",
+      "name": "TRPG関連",
+      "url": "",
+      "pages": [
+        {
+          "id": "p1783981481980459",
+          "name": "プレイスタイル",
+          "url": "",
+          "type": "free",
+          "sections": []
+        },
+        {
+          "id": "p17839814962048524",
+          "name": "地雷・苦手",
+          "url": "jirai.html",
+          "type": "free",
+          "sections": []
+        },
+        {
+          "id": "p17839815141289488",
+          "name": "行きたいシナリオ",
+          "url": "yukitai.html",
+          "type": "free",
+          "sections": []
+        },
+        {
+          "id": "p17839815224562170",
+          "name": "回せるシナリオ",
+          "url": "mawaseru.html",
+          "type": "free",
+          "sections": []
+        },
+        {
+          "id": "p1783981523135468",
+          "name": "おあげ卓ルール",
+          "url": "rule.html",
+          "type": "free",
+          "sections": []
+        }
+      ]
+    }
+  ]
+}
