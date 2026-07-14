@@ -1,14 +1,5 @@
 {
-  "profile": {
-    "icon": "",
-    "name": "玄浄　遠江",
-    "catch": "",
-    "x": "",
-    "discord": "",
-    "career": "",
-    "system": "",
-    "time": ""
-  },
+  "profile": {},
   "majors": [
     {
       "id": "p17839814469165598",
@@ -37,6 +28,13 @@
           "sections": []
         },
         {
+          "id": "p17839814962048524",
+          "name": "地雷・苦手",
+          "url": "jirai.html",
+          "type": "free",
+          "sections": []
+        },
+        {
           "id": "p17839815141289488",
           "name": "行きたいシナリオ",
           "url": "yukitai.html",
@@ -60,28 +58,14 @@
       ]
     },
     {
-      "id": "p1783986731093852",
+      "id": "p17839879024713909",
       "name": "地雷・苦手",
       "url": "",
       "pages": [
         {
-          "id": "p17839867310933531",
+          "id": "p17839879024711206",
           "name": "地雷・苦手",
           "url": "jirai.html",
-          "type": "free",
-          "sections": []
-        },
-        {
-          "id": "p17839867821952393",
-          "name": "地雷チェックシート①",
-          "url": "checksheet.html",
-          "type": "free",
-          "sections": []
-        },
-        {
-          "id": "p17839867910864862",
-          "name": "地雷チェックシート②",
-          "url": "checksheet2.html",
           "type": "free",
           "sections": []
         }
