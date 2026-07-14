@@ -22,8 +22,15 @@
       "pages": [
         {
           "id": "p1783981481980459",
-          "name": "プレイスタイル",
+          "name": "基本情報",
           "url": "",
+          "type": "free",
+          "sections": []
+        },
+        {
+          "id": "p17839965840019120",
+          "name": "プレイスタイル",
+          "url": "playstyle.html",
           "type": "free",
           "sections": []
         },
