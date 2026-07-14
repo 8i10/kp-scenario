@@ -68,6 +68,20 @@
           "url": "jirai.html",
           "type": "free",
           "sections": []
+        },
+        {
+          "id": "p17839879175702843",
+          "name": "地雷チェックシート1",
+          "url": "checksheet.html",
+          "type": "free",
+          "sections": []
+        },
+        {
+          "id": "p17839879181725431",
+          "name": "地雷チェックシート2",
+          "url": "checksheet2.html",
+          "type": "free",
+          "sections": []
         }
       ]
     }
