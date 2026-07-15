@@ -43,7 +43,12 @@
           "name": "基本情報",
           "url": "",
           "type": "free",
-          "sections": []
+          "sections": [
+            {
+              "heading": "",
+              "body": "ああ"
+            }
+          ]
         },
         {
           "id": "p17839965840019120",
