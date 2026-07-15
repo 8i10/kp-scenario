@@ -1,7 +1,7 @@
 {
   "type": "playstyle_check_sheet",
   "version": 1,
-  "updatedAt": "2026-07-15T12:55:33.458Z",
+  "updatedAt": "2026-07-15T13:40:17.295Z",
   "sections": [
     {
       "id": "xmrk9suzj3tq",
@@ -116,6 +116,15 @@
           "left": "",
           "right": "",
           "value": "**KP=PL｜ストーリーテラー/舞台装置型｜温情少な目｜適宜改変有｜作者Twitter追わない｜部屋は自己満足**\n\n　※以下は「KPは偉い」「準備に金と時間をかけたからもっと褒めろ」等、過剰に求める方が見受けられるので記載しています",
+          "level": 0
+        },
+        {
+          "id": "xmrm4k4wh5mq",
+          "name": "使用するBGM・画像について",
+          "type": "text",
+          "left": "",
+          "right": "",
+          "value": "　AI背景画像、版権BGM（アニメ・ゲーム）などを使用することがあります。\n　NGなものがある場合は先に教えて下さい。",
           "level": 0
         },
         {
