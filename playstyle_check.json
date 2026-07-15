@@ -1,7 +1,7 @@
 {
   "type": "playstyle_check_sheet",
   "version": 1,
-  "updatedAt": "2026-07-15T12:54:48.069Z",
+  "updatedAt": "2026-07-15T12:55:33.458Z",
   "sections": [
     {
       "id": "xmrk9suzj3tq",
@@ -147,11 +147,11 @@
         },
         {
           "id": "xmrm2y64w30h",
-          "name": "シナリオ同梱情報外はシナリオ進行に不要な「おまけ」だと思っているので、作者Twitterは追っていません。",
+          "name": "シナリオ同梱外情報",
           "type": "text",
           "left": "",
           "right": "",
-          "value": "　",
+          "value": "　シナリオ進行に不要な「おまけ」だと思っているので、作者TwitterやFANBOXは追っていません。",
           "level": 0
         },
         {
