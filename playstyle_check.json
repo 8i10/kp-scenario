@@ -1,7 +1,7 @@
 {
   "type": "playstyle_check_sheet",
   "version": 1,
-  "updatedAt": "2026-07-16T04:48:56.303Z",
+  "updatedAt": "2026-07-16T11:27:27.555Z",
   "sections": [
     {
       "id": "xmrk9suzj3tq",
@@ -189,21 +189,6 @@
           "right": "",
           "value": "\n　継続などはお気遣いなく、ご自由にどうぞ。\n",
           "level": 0
-        }
-      ]
-    },
-    {
-      "id": "xmrk80dq726r",
-      "title": "",
-      "items": [
-        {
-          "id": "xmrk80f0v4if",
-          "name": "KP／PL",
-          "type": "meter",
-          "left": "KP",
-          "right": "PL",
-          "value": "",
-          "level": 4
         }
       ]
     }
