@@ -696,49 +696,6 @@
           ]
         }
       ]
-    },
-    {
-      "id": "p17841674249472742",
-      "name": "各種リンク",
-      "url": "",
-      "pages": [
-        {
-          "id": "p17841674249475723",
-          "name": "◆",
-          "url": "",
-          "type": "free",
-          "sections": [
-            {
-              "heading": "BOOTH",
-              "items": [
-                {
-                  "id": "itmrmvoqac61c",
-                  "name": "",
-                  "type": "text",
-                  "value": "\n### [八星稲荷](https://eito888etoile.booth.pm/)\n\n　シナリオ頒布は基本ここです。\n\n### [おあげ販売所](https://04gem4rket.booth.pm/)\n\n　フリー立ち絵頒布場所\n",
-                  "left": "",
-                  "right": "",
-                  "level": 0
-                }
-              ]
-            },
-            {
-              "heading": "他SNSなど",
-              "items": [
-                {
-                  "id": "itmrmvp2d53z1",
-                  "name": "",
-                  "type": "text",
-                  "value": "",
-                  "left": "",
-                  "right": "",
-                  "level": 0
-                }
-              ]
-            }
-          ]
-        }
-      ]
     }
   ]
 }
