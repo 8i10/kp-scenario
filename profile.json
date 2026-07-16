@@ -439,7 +439,36 @@
           "name": "◆",
           "url": "",
           "type": "free",
-          "sections": []
+          "sections": [
+            {
+              "heading": "BOOTH",
+              "items": [
+                {
+                  "id": "itmrmvoqac61c",
+                  "name": "",
+                  "type": "text",
+                  "value": "\n### [八星稲荷]()\n\n　シナリオ頒布は基本ここです。\n\n### [おあげ販売所]()\n\n　フリー立ち絵頒布場所\n",
+                  "left": "",
+                  "right": "",
+                  "level": 0
+                }
+              ]
+            },
+            {
+              "heading": "他SNS",
+              "items": [
+                {
+                  "id": "itmrmvp2d53z1",
+                  "name": "",
+                  "type": "text",
+                  "value": "\n### [Bluesky]()\n\n### [mixi2]()",
+                  "left": "",
+                  "right": "",
+                  "level": 0
+                }
+              ]
+            }
+          ]
         }
       ]
     }
