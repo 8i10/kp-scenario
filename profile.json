@@ -220,7 +220,7 @@
       "pages": [
         {
           "id": "p1783981481980459",
-          "name": "基本情報",
+          "name": "基本",
           "url": "",
           "type": "free",
           "sections": [
@@ -319,14 +319,14 @@
         },
         {
           "id": "p17839879175702843",
-          "name": "地雷チェックシート1",
+          "name": "チェックシート1",
           "url": "checksheet.html",
           "type": "free",
           "sections": []
         },
         {
           "id": "p17839879181725431",
-          "name": "地雷チェックシート2",
+          "name": "チェックシート2",
           "url": "checksheet2.html",
           "type": "free",
           "sections": []
