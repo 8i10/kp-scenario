@@ -613,7 +613,27 @@
           "name": "NGリスト",
           "url": "",
           "type": "free",
-          "sections": []
+          "sections": [
+            {
+              "id": "itmrpqtk0l5rw",
+              "heading": "シナリオ通過NG作者",
+              "locked": false,
+              "pass": "",
+              "items": [
+                {
+                  "id": "itmrpqtojz6cp",
+                  "name": "お断り",
+                  "type": "text",
+                  "value": "てすと",
+                  "left": "",
+                  "right": "",
+                  "level": 0,
+                  "locked": true,
+                  "pass": ""
+                }
+              ]
+            }
+          ]
         }
       ]
     },
