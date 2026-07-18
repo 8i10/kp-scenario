@@ -946,8 +946,8 @@
                   "left": "",
                   "right": "",
                   "level": 0,
-                  "locked": false,
-                  "pass": ""
+                  "locked": true,
+                  "pass": "1227"
                 }
               ]
             }
