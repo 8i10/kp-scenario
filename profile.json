@@ -19,7 +19,7 @@
           "type": "profile",
           "sections": [
             {
-              "id": "itmrpqsv2s47m",
+              "id": "itmrpqxx2f4bt",
               "heading": "",
               "locked": false,
               "pass": "",
@@ -49,7 +49,7 @@
               ]
             },
             {
-              "id": "itmrpqsv2s68",
+              "id": "itmrpqxx2f623",
               "heading": "ABOUT ME",
               "locked": false,
               "pass": "",
@@ -123,7 +123,7 @@
               ]
             },
             {
-              "id": "itmrpqsv2s3t2",
+              "id": "itmrpqxx2f6de",
               "heading": "LIKE",
               "locked": false,
               "pass": "",
@@ -186,7 +186,7 @@
               ]
             },
             {
-              "id": "itmrpqsv2s56p",
+              "id": "itmrpqxx2f8h",
               "heading": "ゲームなど",
               "locked": false,
               "pass": "",
@@ -224,7 +224,7 @@
           "type": "free",
           "sections": [
             {
-              "id": "itmrpqsv2s3qo",
+              "id": "itmrpqxx2f702",
               "heading": "依頼関連",
               "locked": false,
               "pass": "",
@@ -243,7 +243,7 @@
               ]
             },
             {
-              "id": "itmrpqsv2sk3",
+              "id": "itmrpqxx2f2wh",
               "heading": "BOOTH",
               "locked": false,
               "pass": "",
@@ -262,7 +262,7 @@
               ]
             },
             {
-              "id": "itmrpqsv2s3u0",
+              "id": "itmrpqxx2f7ld",
               "heading": "他SNSなど",
               "locked": false,
               "pass": "",
@@ -324,7 +324,7 @@
           "type": "free",
           "sections": [
             {
-              "id": "itmrpqsv2s4s9",
+              "id": "itmrpqxx2f2fv",
               "heading": "",
               "locked": false,
               "pass": "",
@@ -343,7 +343,7 @@
               ]
             },
             {
-              "id": "itmrpqsv2s58x",
+              "id": "itmrpqxx2fd4",
               "heading": "",
               "locked": false,
               "pass": "",
@@ -450,7 +450,7 @@
               ]
             },
             {
-              "id": "itmrpqsv2s1mx",
+              "id": "itmrpqxx2f4i4",
               "heading": "同卓の際のお願い",
               "locked": false,
               "pass": "",
@@ -609,31 +609,11 @@
           "sections": []
         },
         {
-          "id": "p17843414216372100",
+          "id": "p17843416432894351",
           "name": "NGリスト",
           "url": "",
           "type": "free",
-          "sections": [
-            {
-              "id": "itmrpqtk0l5rw",
-              "heading": "シナリオ通過NG作者",
-              "locked": false,
-              "pass": "",
-              "items": [
-                {
-                  "id": "itmrpqtojz6cp",
-                  "name": "お断り",
-                  "type": "text",
-                  "value": "てすと",
-                  "left": "",
-                  "right": "",
-                  "level": 0,
-                  "locked": true,
-                  "pass": ""
-                }
-              ]
-            }
-          ]
+          "sections": []
         }
       ]
     },
@@ -649,7 +629,7 @@
           "type": "free",
           "sections": [
             {
-              "id": "itmrpqsv2s57w",
+              "id": "itmrpqxx2fem",
               "heading": "※過去、実際にあった事を含めてを記載しています※",
               "locked": false,
               "pass": "",
@@ -679,7 +659,7 @@
               ]
             },
             {
-              "id": "itmrpqsv2s386",
+              "id": "itmrpqxx2f3c9",
               "heading": "地雷チェックを「配慮」と感じるKPさんへ",
               "locked": false,
               "pass": "",
@@ -734,7 +714,7 @@
           "type": "free",
           "sections": [
             {
-              "id": "itmrpqsv2s47t",
+              "id": "itmrpqxx2fwu",
               "heading": "うちよそについて",
               "locked": false,
               "pass": "",
@@ -830,7 +810,7 @@
               ]
             },
             {
-              "id": "itmrpqsv2s7aj",
+              "id": "itmrpqxx2f1n1",
               "heading": "R18関連の地雷・苦手",
               "locked": false,
               "pass": "",
@@ -871,7 +851,7 @@
               ]
             },
             {
-              "id": "itmrpqsv2s46r",
+              "id": "itmrpqxx2f6uq",
               "heading": "他すり合わせ系",
               "locked": false,
               "pass": "",
