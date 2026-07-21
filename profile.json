@@ -1036,7 +1036,71 @@
           "name": "ポトラ2026",
           "url": "",
           "type": "free",
-          "sections": []
+          "sections": [
+            {
+              "id": "itmru83l5d2ma",
+              "heading": "ポトラ2026",
+              "locked": false,
+              "pass": "",
+              "items": [
+                {
+                  "id": "itmru83lvk10p",
+                  "name": "行きたい！",
+                  "type": "text",
+                  "value": "- [刃鳴は散りても焔は残る](https://yukizono.booth.pm/items/8612166)\n└取引も可\n- [「異聞警察」――警視庁生活安全部民俗特異事象対策課の捜査ファイル](https://booth.pm/ja/items/8350686)\n└全case出たら行きたい\n- [祓魔神事異聞録](https://booth.pm/ja/items/8497383)\n- [404 SALVATION](https://shigure-erugihs.booth.pm/items/8173962)\n- [四神見習いは四季に倣う](https://booth.pm/ja/items/8392314)\n- [巡れや廻れ](https://booth.pm/ja/items/8523339)\n",
+                  "left": "",
+                  "right": "",
+                  "level": 0,
+                  "locked": false,
+                  "pass": ""
+                },
+                {
+                  "id": "itmru83ylf2t2",
+                  "name": "KPかPLしたい",
+                  "type": "text",
+                  "value": "- [紅燦燦、紅燦燦](https://booth.pm/ja/items/8602623)\n└KPC入れていいならKP＞PL\n- [Family vow](https://booth.pm/ja/items/8578405)\n- [ルサンチマンの囀り](https://booth.pm/ja/items/7787760)\n",
+                  "left": "",
+                  "right": "",
+                  "level": 0,
+                  "locked": false,
+                  "pass": ""
+                },
+                {
+                  "id": "itmru83z4v5v",
+                  "name": "読む",
+                  "type": "text",
+                  "value": "- [この動画は存在しません！.mp4](https://booth.pm/ja/items/8598892)\n- [Jack Rose](https://booth.pm/ja/items/8635779)\n- [欠堕ちハイタ](https://benimashiko.booth.pm/items/8634812)\n- [白柔肉](https://booth.pm/ja/items/8396133)\n- [Snuff = Snap](https://booth.pm/ja/items/8633687)\n- [Blossom within](https://booth.pm/ja/items/8631491)\n- [Funny Fuzzy Dizzy](https://booth.pm/ja/items/8528158)\n\n### 多分読む\n\n- [食べられるなら君がいい](https://booth.pm/ja/items/8552551)\n- [禁糧区](https://booth.pm/ja/items/8635517)\n- [きみにわけてあげる](https://booth.pm/ja/items/8626926)\n- [男爵の花嫁](https://booth.pm/ja/items/8539816)\n\n### 買ったら読む\n\n- [見ないで、見ていて](https://melonpanyasan.booth.pm/items/8634110)\n- [×××を孕む](https://booth.pm/ja/items/8615648)\n",
+                  "left": "",
+                  "right": "",
+                  "level": 0,
+                  "locked": false,
+                  "pass": ""
+                },
+                {
+                  "id": "itmru845xfnd",
+                  "name": "読むか迷い中",
+                  "type": "text",
+                  "value": "- [ONE SIDED GAME](https://booth.pm/ja/items/8611961)\n- [爆ぜろよ異邦人](https://booth.pm/ja/items/8578762)\n",
+                  "left": "",
+                  "right": "",
+                  "level": 0,
+                  "locked": false,
+                  "pass": ""
+                },
+                {
+                  "id": "itmru85ya955c",
+                  "name": "頒布待ち",
+                  "type": "text",
+                  "value": "KUZERO-クゼロ-\n月の居ぬ間に\nBet or Be Eat(KPレス版)\n空白の記憶に積む証拠",
+                  "left": "",
+                  "right": "",
+                  "level": 0,
+                  "locked": false,
+                  "pass": ""
+                }
+              ]
+            }
+          ]
         }
       ]
     }
