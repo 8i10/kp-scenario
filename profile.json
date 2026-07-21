@@ -613,7 +613,38 @@
           "name": "ポトラ2026",
           "url": "",
           "type": "free",
-          "sections": []
+          "sections": [
+            {
+              "id": "itmru7bny21tm",
+              "heading": "ポトラ2026",
+              "locked": false,
+              "pass": "",
+              "items": [
+                {
+                  "id": "itmru7btgs550",
+                  "name": "行きたい！",
+                  "type": "text",
+                  "value": "",
+                  "left": "",
+                  "right": "",
+                  "level": 0,
+                  "locked": false,
+                  "pass": ""
+                },
+                {
+                  "id": "itmru7cig02h",
+                  "name": "KPかPLしたい",
+                  "type": "text",
+                  "value": "- [紅燦燦、紅燦燦](https://booth.pm/ja/items/8602623)",
+                  "left": "",
+                  "right": "",
+                  "level": 0,
+                  "locked": false,
+                  "pass": ""
+                }
+              ]
+            }
+          ]
         }
       ]
     },
