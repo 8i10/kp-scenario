@@ -1,7 +1,7 @@
 {
   "type": "playstyle_check_sheet",
   "version": 1,
-  "updatedAt": "2026-07-19T08:46:19.305Z",
+  "updatedAt": "2026-07-22T09:25:51.608Z",
   "sections": [
     {
       "id": "xmrk9suzj3tq",
@@ -271,6 +271,140 @@
           "left": "",
           "right": "",
           "value": "\n卓は面白かったけどシナリオは面白くなかった！\nシナリオは面白かったけど卓が面白くなかった！など、感じ方は人それぞれだと思っています。\n\n卓が面白くなかった！に関しては、卓中に面白くなるようにPL相談やPC対話で面白くなる努力はして欲しいのですが、\nシナリオが面白くなかった！に関しては作者以外には基本どうしようもありません。\nそれを言えない環境は不健全だな～…と思っているため、こちらがKPの場合も「シナリオのここが面白くなかった…」等壁打ちしてもらって構いません。\n(この辺どうなんだろうな～…と思いながら回しているシナリオも多いため)\n",
+          "level": 0,
+          "locked": false,
+          "pass": ""
+        }
+      ]
+    },
+    {
+      "id": "xmrvv67yi2vu",
+      "title": "プレイスタイルチェックシート",
+      "items": [
+        {
+          "id": "xmrvv8c427ny",
+          "name": "",
+          "type": "text",
+          "left": "",
+          "right": "",
+          "value": "\n参考元：https://x.com/hakuudo/status/2079556992511926462?s=20",
+          "level": 0
+        },
+        {
+          "id": "xmrvv956p2os",
+          "name": "キャラメイク・ロールプレイ編",
+          "type": "text",
+          "left": "",
+          "right": "",
+          "value": "",
+          "level": 0
+        },
+        {
+          "id": "xmrvv6wns690",
+          "name": "新規PCの年齢、性別、職業などの決め方",
+          "type": "meter",
+          "left": "固定",
+          "right": "自由",
+          "value": "",
+          "level": 5
+        },
+        {
+          "id": "xmrvvee5c2ir",
+          "name": "",
+          "type": "text",
+          "left": "",
+          "right": "",
+          "value": "あんまりガチガチなHO指定は得意ではないかも……\n性格、性別指定はNG",
+          "level": 0
+        },
+        {
+          "id": "xmrvvaur32qo",
+          "name": "得意な人物像, キャラメイクの傾向",
+          "type": "meter",
+          "left": "アニメ・コミック寄り",
+          "right": "小説・ドラマ寄り",
+          "value": "",
+          "level": 4
+        },
+        {
+          "id": "xmrvvejck6ra",
+          "name": "",
+          "type": "text",
+          "left": "",
+          "right": "",
+          "value": "現代が舞台と言っても、TRPGは架空のものなので……\nただ、思考などの倫理観は等身大なPCを作りたい\n基本シナリオトーンに合わせたい派",
+          "level": 0
+        },
+        {
+          "id": "xmrvvcd0q6jj",
+          "name": "作りやすい年齢層",
+          "type": "meter",
+          "left": "低年齢(10代)",
+          "right": " 高年齢(40代)",
+          "value": "",
+          "level": 5
+        },
+        {
+          "id": "xmrvvdrru7os",
+          "name": "",
+          "type": "text",
+          "left": "",
+          "right": "",
+          "value": "20代後半～30代後半が多め",
+          "level": 0
+        },
+        {
+          "id": "xmrvvcijn2xn",
+          "name": "他PCとの関係へのシナリオの介入度",
+          "type": "meter",
+          "left": "固定",
+          "right": "自由",
+          "value": "",
+          "level": 4
+        },
+        {
+          "id": "xmrvvenwd4qu",
+          "name": "",
+          "type": "text",
+          "left": "",
+          "right": "",
+          "value": "シナリオによる。臨機応変",
+          "level": 0
+        },
+        {
+          "id": "xmrvvcnf66yc",
+          "name": "行動や演出へのシナリオの介入度",
+          "type": "meter",
+          "left": "強い",
+          "right": "弱い",
+          "value": "",
+          "level": 5
+        },
+        {
+          "id": "xmrvvepog2cd",
+          "name": "",
+          "type": "text",
+          "left": "",
+          "right": "",
+          "value": "シナリオに用意されているなら事前に教えて欲しいタイプ。\n基本RPの流れで見せ場を作ったりシチュエーションを演出したい",
+          "level": 0
+        },
+        {
+          "id": "xmrvveqd54sj",
+          "name": "RPのきっかけややりやすいRPの傾向",
+          "type": "meter",
+          "left": "キャラ・イベント",
+          "right": "探索・攻略",
+          "value": "",
+          "level": 2
+        },
+        {
+          "id": "xmrvvespglr",
+          "name": "",
+          "type": "text",
+          "left": "",
+          "right": "",
+          "value": "PCの性格や関係性、シチュエーションに応じたRPが多いが、探索や推理、情報共有のRPもちゃんとする。",
           "level": 0
         }
       ]
