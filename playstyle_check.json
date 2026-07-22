@@ -1,7 +1,7 @@
 {
   "type": "playstyle_check_sheet",
   "version": 1,
-  "updatedAt": "2026-07-22T09:37:00.727Z",
+  "updatedAt": "2026-07-22T09:40:43.111Z",
   "sections": [
     {
       "id": "xmrk9suzj3tq",
@@ -296,7 +296,7 @@
           "type": "text",
           "left": "",
           "right": "",
-          "value": "### キャラメイク・ロールプレイ編",
+          "value": "## キャラメイク・ロールプレイ編",
           "level": 0
         },
         {
@@ -413,7 +413,7 @@
           "type": "text",
           "left": "",
           "right": "",
-          "value": "### シナリオ傾向＆マスタリング編",
+          "value": "## シナリオ傾向＆マスタリング編",
           "level": 0
         },
         {
