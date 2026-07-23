@@ -1,7 +1,7 @@
 {
   "type": "playstyle_check_sheet",
   "version": 1,
-  "updatedAt": "2026-07-23T06:53:02.132Z",
+  "updatedAt": "2026-07-23T07:15:29.418Z",
   "sections": [
     {
       "id": "xmrk9suzj3tq",
@@ -15,7 +15,7 @@
           "type": "text",
           "left": "",
           "right": "",
-          "value": "\n　**全員生還はPCの意思の尊重した結果という認識なので「全員生還を目的にする」人とは根本的に合わない**と思います。\n",
+          "value": "\n　**{c:#e03131}全員生還はPCの意思の尊重した結果という認識なので「全員生還を目的にする」人とは根本的に合わない{/c}**と思います。\n",
           "level": 0,
           "locked": false,
           "pass": ""
