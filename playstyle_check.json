@@ -1,7 +1,7 @@
 {
   "type": "playstyle_check_sheet",
   "version": 1,
-  "updatedAt": "2026-07-22T09:40:43.111Z",
+  "updatedAt": "2026-07-23T06:53:02.132Z",
   "sections": [
     {
       "id": "xmrk9suzj3tq",
@@ -259,7 +259,7 @@
           "type": "text",
           "left": "",
           "right": "",
-          "value": "\n任意なのは重々承知なのですが…「ある卓とない卓」があるのがあんまり好きではないようです。\nこれ、ﾌﾝﾜﾘ苦手だな～…と思ったものなんですが、あんま良く思ってないよって意味を込めて一応記載。\n最初から卓報告していない、立ち絵描いてない、卓報告できないシナリオ等ならば先に伝えてくれた方が嬉しいです。\n**どんなに「ある卓とない卓に差はないよ！」と言われても「ある卓とない卓」という差が出ている**ので、\n立ち絵がない卓はやる気なかったんだな…卓報告がない卓は面白くなかったんだな…って思います。\n心が狭くてすいません。\n\n:::口の悪い意見\n||ご自分で立ち絵描かれている方の「描きたいと思っているのに毎回間に合わない！」は計画性のなさを教えていただけているので、今度ダブルブッキングや遅刻等の可能性を見て、そっと同卓を控えさせていただくことがあります。||\n:::",
+          "value": "\n任意なのは重々承知なのですが…「ある卓とない卓」があるのがあんまり好きではないようです。\nこれ、ﾌﾝﾜﾘ苦手だな～…と思ったものなんですが、あんま良く思ってないよって意味を込めて一応記載。\n最初から卓報告していない、立ち絵描いてない、卓報告できないシナリオ等ならば先に伝えてくれた方が嬉しいです。\n**どんなに「ある卓とない卓に差はないよ！」と言われても「ある卓とない卓」という差が出ている**ので、\n立ち絵がない卓はやる気なかったんだな…卓報告がない卓は面白くなかったんだな…って思います。\n心が狭くてすいません。\n\n:::口の悪い意見\nご自分で立ち絵描かれている方の「描きたいと思っているのに毎回間に合わない！」は計画性のなさを教えていただけているので、今後のダブルブッキングや無断遅刻等の可能性を見て、そっと同卓を控えさせていただくことがあります。\n:::",
           "level": 0,
           "locked": false,
           "pass": ""
@@ -280,6 +280,8 @@
     {
       "id": "xmrvv67yi2vu",
       "title": "プレイスタイルチェックシート",
+      "locked": false,
+      "pass": "",
       "items": [
         {
           "id": "xmrvv8c427ny",
@@ -288,7 +290,9 @@
           "left": "",
           "right": "",
           "value": "\n参考元：https://x.com/hakuudo/status/2079556992511926462?s=20",
-          "level": 0
+          "level": 0,
+          "locked": false,
+          "pass": ""
         },
         {
           "id": "xmrvv956p2os",
@@ -297,7 +301,9 @@
           "left": "",
           "right": "",
           "value": "## キャラメイク・ロールプレイ編",
-          "level": 0
+          "level": 0,
+          "locked": false,
+          "pass": ""
         },
         {
           "id": "xmrvv6wns690",
@@ -306,7 +312,9 @@
           "left": "固定",
           "right": "自由",
           "value": "",
-          "level": 5
+          "level": 5,
+          "locked": false,
+          "pass": ""
         },
         {
           "id": "xmrvvee5c2ir",
@@ -315,7 +323,9 @@
           "left": "",
           "right": "",
           "value": "> あんまりガチガチなHO指定は得意ではないかも……\n> 性格、性別指定はNG",
-          "level": 0
+          "level": 0,
+          "locked": false,
+          "pass": ""
         },
         {
           "id": "xmrvvaur32qo",
@@ -324,7 +334,9 @@
           "left": "アニメ・コミック寄り",
           "right": "小説・ドラマ寄り",
           "value": "",
-          "level": 4
+          "level": 4,
+          "locked": false,
+          "pass": ""
         },
         {
           "id": "xmrvvejck6ra",
@@ -333,7 +345,9 @@
           "left": "",
           "right": "",
           "value": "> 現代が舞台と言っても、TRPGは架空のものなので……\n> ただ、思考などの倫理観は等身大なPCを作りたい\n> 基本シナリオトーンに合わせたい派",
-          "level": 0
+          "level": 0,
+          "locked": false,
+          "pass": ""
         },
         {
           "id": "xmrvvcd0q6jj",
@@ -342,7 +356,9 @@
           "left": "低年齢(10代)",
           "right": " 高年齢(40代)",
           "value": "",
-          "level": 5
+          "level": 5,
+          "locked": false,
+          "pass": ""
         },
         {
           "id": "xmrvvdrru7os",
@@ -351,7 +367,9 @@
           "left": "",
           "right": "",
           "value": "> 20代後半～30代後半が多め",
-          "level": 0
+          "level": 0,
+          "locked": false,
+          "pass": ""
         },
         {
           "id": "xmrvvcijn2xn",
@@ -360,7 +378,9 @@
           "left": "固定",
           "right": "自由",
           "value": "",
-          "level": 4
+          "level": 4,
+          "locked": false,
+          "pass": ""
         },
         {
           "id": "xmrvvenwd4qu",
@@ -369,7 +389,9 @@
           "left": "",
           "right": "",
           "value": "> シナリオによる。臨機応変",
-          "level": 0
+          "level": 0,
+          "locked": false,
+          "pass": ""
         },
         {
           "id": "xmrvvcnf66yc",
@@ -378,7 +400,9 @@
           "left": "強い",
           "right": "弱い",
           "value": "",
-          "level": 5
+          "level": 5,
+          "locked": false,
+          "pass": ""
         },
         {
           "id": "xmrvvepog2cd",
@@ -387,7 +411,9 @@
           "left": "",
           "right": "",
           "value": "> シナリオに用意されているなら事前に教えて欲しいタイプ。\n> 基本RPの流れで見せ場を作ったりシチュエーションを演出したい",
-          "level": 0
+          "level": 0,
+          "locked": false,
+          "pass": ""
         },
         {
           "id": "xmrvveqd54sj",
@@ -396,7 +422,9 @@
           "left": "キャラ・イベント",
           "right": "探索・攻略",
           "value": "",
-          "level": 2
+          "level": 2,
+          "locked": false,
+          "pass": ""
         },
         {
           "id": "xmrvvespglr",
@@ -405,7 +433,9 @@
           "left": "",
           "right": "",
           "value": "> PCの性格や関係性、シチュエーションに応じたRPが多いが、探索や推理、情報共有のRPもちゃんとする。",
-          "level": 0
+          "level": 0,
+          "locked": false,
+          "pass": ""
         },
         {
           "id": "xmrvvnphe3t",
@@ -414,7 +444,9 @@
           "left": "",
           "right": "",
           "value": "## シナリオ傾向＆マスタリング編",
-          "level": 0
+          "level": 0,
+          "locked": false,
+          "pass": ""
         },
         {
           "id": "xmrvvohjw40g",
@@ -423,7 +455,9 @@
           "left": "選択肢提示",
           "right": "行動提案",
           "value": "",
-          "level": 4
+          "level": 4,
+          "locked": false,
+          "pass": ""
         },
         {
           "id": "xmrvvolt4a1",
@@ -432,7 +466,9 @@
           "left": "",
           "right": "",
           "value": "> 行動提案系シナリオなら先に教えて欲しい（同人誌ナリオのほとんどは行動提案するとシナリオ壊れたりするので）",
-          "level": 0
+          "level": 0,
+          "locked": false,
+          "pass": ""
         },
         {
           "id": "xmrvvomktb7",
@@ -441,7 +477,9 @@
           "left": "フィクション・特殊",
           "right": "史実・現実",
           "value": "",
-          "level": 1
+          "level": 1,
+          "locked": false,
+          "pass": ""
         },
         {
           "id": "xmrvvoo386ma",
@@ -450,7 +488,9 @@
           "left": "",
           "right": "",
           "value": "> 圧倒的フィクション派",
-          "level": 0
+          "level": 0,
+          "locked": false,
+          "pass": ""
         },
         {
           "id": "xmrvvoov04ii",
@@ -459,7 +499,9 @@
           "left": "パズル・トリック",
           "right": "推論・推測",
           "value": "",
-          "level": 6
+          "level": 6,
+          "locked": false,
+          "pass": ""
         },
         {
           "id": "xmrvvoq441hg",
@@ -468,7 +510,9 @@
           "left": "",
           "right": "",
           "value": "> 今までの情報なんだったんだ？？？？？になるのはかなり嫌なので、今まで得た情報をまとめた結果からひらめきを得るものはOK\n> 今まで何の情報も出ていなかったものを当てるようなもの、所謂作者の脳あてはNG",
-          "level": 0
+          "level": 0,
+          "locked": false,
+          "pass": ""
         },
         {
           "id": "xmrvvoqtq6n7",
@@ -477,7 +521,9 @@
           "left": "どんでん返し",
           "right": "推測通り",
           "value": "",
-          "level": 6
+          "level": 6,
+          "locked": false,
+          "pass": ""
         },
         {
           "id": "xmrvvosev4w1",
@@ -486,7 +532,9 @@
           "left": "",
           "right": "",
           "value": "> 今までの情報なんだったんだ？？？？？になるのはかなり嫌かも",
-          "level": 0
+          "level": 0,
+          "locked": false,
+          "pass": ""
         },
         {
           "id": "xmrvvq5f75p4",
@@ -495,7 +543,9 @@
           "left": "コミカル・派手 ",
           "right": "シリアス・地味",
           "value": "",
-          "level": 3
+          "level": 3,
+          "locked": false,
+          "pass": ""
         },
         {
           "id": "xmrvvq717466",
@@ -504,7 +554,9 @@
           "left": "",
           "right": "",
           "value": "> FFとかテイルズで育ったので、PCの運命選択やボス戦があるシナリオの方が好き。\n> それがシナリオ背景や、そこに至るまでの内容、探索にちゃんと沿っているものがいい",
-          "level": 0
+          "level": 0,
+          "locked": false,
+          "pass": ""
         },
         {
           "id": "xmrvvtgul6ys",
@@ -513,7 +565,9 @@
           "left": "固定",
           "right": "自由",
           "value": "",
-          "level": 6
+          "level": 6,
+          "locked": false,
+          "pass": ""
         },
         {
           "id": "xmrvvtj565p1",
@@ -522,7 +576,9 @@
           "left": "",
           "right": "",
           "value": "> そもそも全部同じ卓にはならないと思っている。\n> PCPLが違えばその卓独自のものになると思っているので、積極的にRPを挟んで自陣の卓というものにしていきたい。",
-          "level": 0
+          "level": 0,
+          "locked": false,
+          "pass": ""
         }
       ]
     }
