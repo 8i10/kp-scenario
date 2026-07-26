@@ -2,13 +2,26 @@
   "reads": {},
   "manual": [
     {
+      "id": "o17850680987089863",
+      "name": "ルナリアス英雄譚",
+      "rating": "全年齢",
+      "players": "4PL",
+      "read": false,
+      "url": "https://nine-too.booth.pm/items/8536252",
+      "memo": "",
+      "biko": "",
+      "kpx": false
+    },
+    {
       "id": "o17850664687054973",
       "name": "Terrible Pool Doll",
       "rating": "R18",
       "players": "タイマン",
       "read": false,
       "url": "https://uta914.booth.pm/items/8586679",
-      "memo": ""
+      "memo": "",
+      "biko": "",
+      "kpx": false
     },
     {
       "id": "o17850663972702538",
@@ -17,7 +30,9 @@
       "players": "タイマンor2PL",
       "read": false,
       "url": "https://nibibi-trpg.booth.pm/items/8579212",
-      "memo": ""
+      "memo": "",
+      "biko": "",
+      "kpx": false
     },
     {
       "id": "o17850649288471131",
@@ -26,7 +41,9 @@
       "players": "タイマンor2PL",
       "read": false,
       "url": "https://booth.pm/ja/items/8635779",
-      "memo": ""
+      "memo": "",
+      "biko": "",
+      "kpx": false
     }
   ]
 }
