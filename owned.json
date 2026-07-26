@@ -1,4 +1,14 @@
 {
   "reads": {},
-  "manual": []
+  "manual": [
+    {
+      "id": "o17850649288471131",
+      "name": "Jack Rose",
+      "rating": "全年齢",
+      "players": "タイマンor2PL",
+      "read": false,
+      "url": "https://booth.pm/ja/items/8635779",
+      "memo": ""
+    }
+  ]
 }
