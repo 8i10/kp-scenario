@@ -2,6 +2,17 @@
   "reads": {},
   "manual": [
     {
+      "id": "o17850836561744845",
+      "name": "宿種蚕食",
+      "rating": "R18",
+      "players": "1PL",
+      "read": true,
+      "url": "https://fuyukineko.booth.pm/items/8492659",
+      "memo": "",
+      "biko": "",
+      "kpx": false
+    },
+    {
       "id": "o17850836367385204",
       "name": "紫煙と曇天",
       "rating": "R18",
