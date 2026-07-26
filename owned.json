@@ -2,8 +2,9 @@
   {
     "id": "o17850468697101762",
     "name": "01",
+    "rating": "全年齢",
     "players": "00",
-    "read": true,
+    "read": false,
     "url": ""
   }
 ]
