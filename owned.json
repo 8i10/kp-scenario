@@ -2,6 +2,17 @@
   "reads": {},
   "manual": [
     {
+      "id": "o17850683766861598",
+      "name": "禁糧区",
+      "rating": "R18G",
+      "players": "タイマンor2PL",
+      "read": false,
+      "url": "https://booth.pm/ja/items/8635517",
+      "memo": "",
+      "biko": "読むかも",
+      "kpx": false
+    },
+    {
       "id": "o17850683433406199",
       "name": "きみにわけてあげる",
       "rating": "R18",
