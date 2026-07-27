@@ -2,6 +2,17 @@
   "reads": {},
   "manual": [
     {
+      "id": "o17851368037502020",
+      "name": "Aconite",
+      "rating": "全年齢",
+      "players": "4PL",
+      "read": true,
+      "url": "",
+      "memo": "解釈違い起こしたので回せなくなりました",
+      "biko": "",
+      "kpx": true
+    },
+    {
       "id": "o1785084028423587",
       "name": "存在の証明と再定義",
       "rating": "R18",
