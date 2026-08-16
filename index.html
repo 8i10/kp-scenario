@@ -35,14 +35,12 @@
 <body>
 
 <div class="tabbar" id="tabbar">
-  <button class="tab active" data-tab="yukitai" onclick="switchTab('yukitai')">行きたいシナリオ</button>
-  <button class="tab" data-tab="kaiseru" onclick="switchTab('kaiseru')">回せるシナリオ</button>
+  <button class="tab active" data-tab="playstyle" onclick="switchTab('playstyle')">プレイスタイル</button>
   <button class="tab" data-tab="rule" onclick="switchTab('rule')">おあげ卓ルール</button>
 </div>
 
 <div class="frame-wrap">
-  <iframe id="frame-yukitai" class="active" data-src="yukitai.html" title="行きたいシナリオ"></iframe>
-  <iframe id="frame-kaiseru" data-src="mawaseru.html" title="回せるシナリオ"></iframe>
+  <iframe id="frame-playstyle" class="active" data-src="playstyle.html" title="プレイスタイル"></iframe>
   <iframe id="frame-rule" data-src="rule.html" title="卓のルール"></iframe>
 </div>
 
@@ -68,7 +66,7 @@ function switchTab(tab){
 }
 
 // 初期タブを読み込み
-loadFrame('yukitai');
+loadFrame('playstyle');
 </script>
 </body>
 </html>
